@@ -1,2189 +1,648 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" class="h-full">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="theme-color" content="#2563eb">
-<title>CarCare</title>
-
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:Arial,"Noto Sans Thai",sans-serif;
-}
-
-body{
-    background:#e9eef5;
-    color:#172033;
-}
-
-button,input,select{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-.app{
-    width:100%;
-    max-width:430px;
-    min-height:100vh;
-    margin:auto;
-    background:#f7f9fc;
-    position:relative;
-    overflow:hidden;
-}
-
-/* LOGIN */
-.login{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:25px;
-    background:linear-gradient(145deg,#2563eb,#1e40af);
-}
-
-.login-box{
-    width:100%;
-    background:white;
-    padding:30px 24px;
-    border-radius:28px;
-    box-shadow:0 20px 50px rgba(0,0,0,.2);
-}
-
-.logo{
-    text-align:center;
-    margin-bottom:25px;
-}
-
-.logo-icon{
-    width:75px;
-    height:75px;
-    border-radius:22px;
-    background:#2563eb;
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:auto;
-    font-size:38px;
-}
-
-.logo h1{
-    margin-top:12px;
-    font-size:30px;
-}
-
-.logo p{
-    color:#777;
-    margin-top:5px;
-}
-
-.field{
-    margin-bottom:16px;
-}
-
-.field label{
-    display:block;
-    margin-bottom:7px;
-    font-weight:bold;
-    font-size:14px;
-}
-
-.field input,
-.field select,
-.field textarea{
-    width:100%;
-    padding:13px;
-    border:1px solid #dce1ea;
-    border-radius:13px;
-    outline:none;
-    background:white;
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus{
-    border-color:#2563eb;
-}
-
-.primary{
-    width:100%;
-    border:0;
-    padding:14px;
-    background:#2563eb;
-    color:white;
-    border-radius:14px;
-    font-weight:bold;
-    font-size:16px;
-}
-
-.primary:hover{
-    background:#1d4ed8;
-}
-
-/* HEADER */
-.header{
-    padding:20px;
-    background:white;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-bottom:1px solid #e8ebf0;
-}
-
-.header h2{
-    font-size:22px;
-}
-
-.header small{
-    color:#777;
-}
-
-.icon-btn{
-    width:42px;
-    height:42px;
-    border:0;
-    border-radius:13px;
-    background:#eef4ff;
-    color:#2563eb;
-    font-size:19px;
-}
-
-/* PAGE */
-.page{
-    padding:18px;
-    padding-bottom:95px;
-    min-height:calc(100vh - 75px);
-}
-
-/* DASHBOARD */
-.welcome{
-    background:linear-gradient(135deg,#2563eb,#3b82f6);
-    color:white;
-    padding:20px;
-    border-radius:22px;
-    margin-bottom:18px;
-}
-
-.welcome p{
-    opacity:.85;
-    margin-top:5px;
-}
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-    margin-bottom:18px;
-}
-
-.stat{
-    background:white;
-    padding:16px;
-    border-radius:18px;
-    box-shadow:0 3px 12px rgba(0,0,0,.04);
-}
-
-.stat .emoji{
-    font-size:25px;
-}
-
-.stat h3{
-    margin-top:8px;
-    font-size:22px;
-}
-
-.stat p{
-    color:#777;
-    font-size:13px;
-}
-
-.section-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin:20px 0 12px;
-}
-
-.section-title h3{
-    font-size:18px;
-}
-
-.section-title button{
-    border:0;
-    background:none;
-    color:#2563eb;
-}
-
-/* CAR CARD */
-.car-card{
-    background:white;
-    border-radius:20px;
-    padding:12px;
-    margin-bottom:14px;
-    box-shadow:0 4px 15px rgba(0,0,0,.05);
-    display:flex;
-    gap:12px;
-}
-
-.car-img{
-    width:90px;
-    height:90px;
-    border-radius:16px;
-    object-fit:cover;
-    background:#e9eef5;
-}
-
-.car-info{
-    flex:1;
-}
-
-.car-info h3{
-    font-size:17px;
-}
-
-.car-info p{
-    color:#777;
-    font-size:13px;
-    margin-top:4px;
-}
-
-.badge{
-    display:inline-block;
-    padding:5px 9px;
-    border-radius:8px;
-    font-size:11px;
-    margin-top:7px;
-}
-
-.badge.blue{
-    background:#e8f0ff;
-    color:#2563eb;
-}
-
-.badge.green{
-    background:#e8f8ef;
-    color:#16834c;
-}
-
-.badge.red{
-    background:#ffe9e9;
-    color:#dc2626;
-}
-
-.badge.orange{
-    background:#fff1df;
-    color:#d97706;
-}
-
-/* MAINTENANCE */
-.maintenance{
-    background:white;
-    border-radius:18px;
-    padding:15px;
-    margin-bottom:12px;
-    box-shadow:0 3px 12px rgba(0,0,0,.04);
-}
-
-.maintenance-top{
-    display:flex;
-    justify-content:space-between;
-}
-
-.maintenance h4{
-    font-size:16px;
-}
-
-.maintenance p{
-    font-size:13px;
-    color:#777;
-    margin-top:5px;
-}
-
-.countdown{
-    margin-top:12px;
-    padding:12px;
-    border-radius:12px;
-    background:#f0f6ff;
-    color:#2563eb;
-    font-weight:bold;
-    text-align:center;
-}
-
-.countdown.danger{
-    background:#fff0f0;
-    color:#dc2626;
-}
-
-.countdown.warning{
-    background:#fff5e8;
-    color:#d97706;
-}
-
-.actions{
-    display:flex;
-    gap:7px;
-    margin-top:10px;
-}
-
-.small-btn{
-    border:0;
-    padding:8px 11px;
-    border-radius:9px;
-    font-size:12px;
-}
-
-.edit{
-    background:#e8f0ff;
-    color:#2563eb;
-}
-
-.delete{
-    background:#ffe9e9;
-    color:#dc2626;
-}
-
-.complete{
-    background:#e8f8ef;
-    color:#16834c;
-}
-
-/* FORM CARD */
-.form-card{
-    background:white;
-    padding:18px;
-    border-radius:20px;
-    box-shadow:0 4px 15px rgba(0,0,0,.05);
-}
-
-.image-upload{
-    text-align:center;
-    margin-bottom:20px;
-}
-
-.preview{
-    width:130px;
-    height:100px;
-    object-fit:cover;
-    border-radius:18px;
-    background:#eef1f6;
-    display:block;
-    margin:0 auto 10px;
-}
-
-.upload-btn{
-    display:inline-block;
-    background:#eaf1ff;
-    color:#2563eb;
-    padding:9px 14px;
-    border-radius:10px;
-    font-size:13px;
-    cursor:pointer;
-}
-
-input[type=file]{
-    display:none;
-}
-
-/* HISTORY */
-.history{
-    background:white;
-    padding:15px;
-    border-radius:17px;
-    margin-bottom:10px;
-}
-
-.history-row{
-    display:flex;
-    justify-content:space-between;
-}
-
-.price{
-    font-weight:bold;
-    color:#16834c;
-}
-
-/* BOTTOM NAV */
-.bottom-nav{
-    position:fixed;
-    bottom:0;
-    width:100%;
-    max-width:430px;
-    height:72px;
-    background:white;
-    border-top:1px solid #e6e9ef;
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-    z-index:50;
-}
-
-.nav-btn{
-    background:none;
-    border:0;
-    color:#8a91a0;
-    font-size:11px;
-    text-align:center;
-}
-
-.nav-btn div{
-    font-size:21px;
-    margin-bottom:3px;
-}
-
-.nav-btn.active{
-    color:#2563eb;
-}
-
-/* MODAL */
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.45);
-    display:none;
-    align-items:flex-end;
-    justify-content:center;
-    z-index:100;
-}
-
-.modal-box{
-    width:100%;
-    max-width:430px;
-    background:white;
-    border-radius:25px 25px 0 0;
-    padding:22px;
-    max-height:90vh;
-    overflow-y:auto;
-}
-
-.modal-head{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:18px;
-}
-
-.close{
-    border:0;
-    background:#f0f1f4;
-    width:35px;
-    height:35px;
-    border-radius:10px;
-}
-
-/* EMPTY */
-.empty{
-    text-align:center;
-    padding:35px 15px;
-    color:#888;
-}
-
-.empty-icon{
-    font-size:50px;
-    margin-bottom:10px;
-}
-
-/* TOAST */
-.toast{
-    position:fixed;
-    bottom:85px;
-    left:50%;
-    transform:translateX(-50%) translateY(20px);
-    background:#172033;
-    color:white;
-    padding:12px 18px;
-    border-radius:12px;
-    opacity:0;
-    pointer-events:none;
-    transition:.3s;
-    z-index:300;
-    max-width:90%;
-    text-align:center;
-}
-
-.toast.show{
-    opacity:1;
-    transform:translateX(-50%) translateY(0);
-}
-
-/* DARK */
-body.dark{
-    background:#101827;
-}
-
-.dark .app,
-.dark .page{
-    background:#101827;
-}
-
-.dark .header,
-.dark .stat,
-.dark .car-card,
-.dark .maintenance,
-.dark .form-card,
-.dark .history,
-.dark .bottom-nav,
-.dark .modal-box{
-    background:#182235;
-    color:#fff;
-}
-
-.dark .field input,
-.dark .field select,
-.dark .field textarea{
-    background:#111a2b;
-    color:white;
-    border-color:#34415a;
-}
-
-.dark .stat p,
-.dark .car-info p,
-.dark .maintenance p{
-    color:#aab3c4;
-}
-
-.dark .section-title{
-    color:white;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚗 PrimeShine Car Care Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js for Dashboard Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
+<body class="bg-slate-50 text-slate-800 h-full flex flex-col">
 
-<body>
-
-<div class="app" id="app"></div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-
-/* =========================
-   DATA
-========================= */
-
-const carModels = {
-
-    "Toyota":[
-        "Yaris",
-        "Yaris Ativ",
-        "Vios",
-        "Corolla Altis",
-        "Camry",
-        "Hilux Revo",
-        "Fortuner",
-        "Corolla Cross",
-        "Innova"
-    ],
-
-    "Honda":[
-        "City",
-        "Civic",
-        "Accord",
-        "Jazz",
-        "HR-V",
-        "CR-V",
-        "BR-V"
-    ],
-
-    "Isuzu":[
-        "D-Max",
-        "MU-X"
-    ],
-
-    "Mitsubishi":[
-        "Mirage",
-        "Attrage",
-        "Triton",
-        "Pajero Sport",
-        "Xpander"
-    ],
-
-    "Nissan":[
-        "Almera",
-        "March",
-        "Navara",
-        "Kicks",
-        "Terra",
-        "Leaf"
-    ],
-
-    "Mazda":[
-        "Mazda 2",
-        "Mazda 3",
-        "CX-3",
-        "CX-30",
-        "CX-5",
-        "CX-8"
-    ],
-
-    "Ford":[
-        "Ranger",
-        "Everest",
-        "Mustang"
-    ],
-
-    "MG":[
-        "MG3",
-        "MG5",
-        "MG6",
-        "ZS",
-        "HS",
-        "MG4"
-    ],
-
-    "BYD":[
-        "ATTO 3",
-        "Dolphin",
-        "Seal",
-        "M6"
-    ],
-
-    "Mercedes-Benz":[
-        "A-Class",
-        "C-Class",
-        "E-Class",
-        "S-Class",
-        "GLA",
-        "GLC"
-    ],
-
-    "BMW":[
-        "Series 2",
-        "Series 3",
-        "Series 5",
-        "X1",
-        "X3",
-        "X5"
-    ],
-
-    "Tesla":[
-        "Model 3",
-        "Model Y",
-        "Model S",
-        "Model X"
-    ]
-};
-
-let cars = JSON.parse(localStorage.getItem("carcare_cars") || "[]");
-let services = JSON.parse(localStorage.getItem("carcare_services") || "[]");
-let history = JSON.parse(localStorage.getItem("carcare_history") || "[]");
-
-let currentPage = "home";
-let editingCar = null;
-let editingService = null;
-
-/* =========================
-   LOGIN
-========================= */
-
-function isLogged(){
-    return localStorage.getItem("carcare_logged") === "true";
-}
-
-function showLogin(){
-
-    document.getElementById("app").innerHTML = `
-
-    <div class="login">
-
-        <div class="login-box">
-
-            <div class="logo">
-
-                <div class="logo-icon">🚗</div>
-
-                <h1>CarCare</h1>
-
-                <p>Smart Car Maintenance</p>
-
+    <header class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-blue-600 p-2.5 rounded-xl shadow-inner text-xl flex items-center justify-center">
+                    <i class="fa-solid fa-car-tunnel"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight">PrimeShine Car Care</h1>
+                    <p class="text-xs text-blue-300">ระบบบริหารจัดการคาร์แคร์อัจฉริยะครบวงจร</p>
+                </div>
             </div>
 
-            <div class="field">
-
-                <label>ชื่อผู้ใช้</label>
-
-                <input id="loginUser"
-                       placeholder="กรอกชื่อผู้ใช้"
-                       autocomplete="username">
-
-            </div>
-
-            <div class="field">
-
-                <label>รหัสผ่าน</label>
-
-                <input id="loginPass"
-                       type="password"
-                       placeholder="กรอกรหัสผ่าน"
-                       autocomplete="current-password">
-
-            </div>
-
-            <button class="primary" onclick="login()">
-                🔐 เข้าสู่ระบบ
-            </button>
-
-        </div>
-
-    </div>
-
-    `;
-
-    const savedUser = localStorage.getItem("carcare_user");
-
-    if(savedUser){
-        document.getElementById("loginUser").value = savedUser;
-    }
-}
-
-function login(){
-
-    const user = document.getElementById("loginUser").value.trim();
-    const pass = document.getElementById("loginPass").value;
-
-    if(!user || !pass){
-        toast("กรุณากรอกชื่อผู้ใช้และรหัสผ่าน");
-        return;
-    }
-
-    localStorage.setItem("carcare_user",user);
-    localStorage.setItem("carcare_password",pass);
-    localStorage.setItem("carcare_logged","true");
-
-    requestNotification();
-
-    render();
-    toast("เข้าสู่ระบบสำเร็จ");
-}
-
-function logout(){
-
-    localStorage.removeItem("carcare_logged");
-
-    showLogin();
-}
-
-/* =========================
-   STORAGE
-========================= */
-
-function saveData(){
-
-    localStorage.setItem(
-        "carcare_cars",
-        JSON.stringify(cars)
-    );
-
-    localStorage.setItem(
-        "carcare_services",
-        JSON.stringify(services)
-    );
-
-    localStorage.setItem(
-        "carcare_history",
-        JSON.stringify(history)
-    );
-}
-
-/* =========================
-   RENDER
-========================= */
-
-function render(){
-
-    if(!isLogged()){
-        showLogin();
-        return;
-    }
-
-    document.getElementById("app").innerHTML = `
-
-        <div class="header">
-
-            <div>
-                <h2>${pageTitle()}</h2>
-                <small>CarCare 🚗</small>
-            </div>
-
-            <button class="icon-btn"
-                    onclick="toggleDark()">
-                🌙
-            </button>
-
-        </div>
-
-        <div class="page" id="page"></div>
-
-        <div class="bottom-nav">
-
-            <button class="nav-btn ${currentPage==='home'?'active':''}"
-                    onclick="go('home')">
-                <div>🏠</div>
-                หน้าหลัก
-            </button>
-
-            <button class="nav-btn ${currentPage==='cars'?'active':''}"
-                    onclick="go('cars')">
-                <div>🚗</div>
-                รถของฉัน
-            </button>
-
-            <button class="nav-btn ${currentPage==='service'?'active':''}"
-                    onclick="go('service')">
-                <div>🔧</div>
-                บำรุงรักษา
-            </button>
-
-            <button class="nav-btn ${currentPage==='history'?'active':''}"
-                    onclick="go('history')">
-                <div>📜</div>
-                ประวัติ
-            </button>
-
-            <button class="nav-btn ${currentPage==='settings'?'active':''}"
-                    onclick="go('settings')">
-                <div>⚙️</div>
-                ตั้งค่า
-            </button>
-
-        </div>
-    `;
-
-    renderPage();
-
-    updateCountdowns();
-}
-
-function pageTitle(){
-
-    const titles = {
-        home:"หน้าหลัก",
-        cars:"รถของฉัน",
-        service:"บำรุงรักษา",
-        history:"ประวัติ",
-        settings:"ตั้งค่า"
-    };
-
-    return titles[currentPage];
-}
-
-function go(page){
-
-    currentPage = page;
-
-    render();
-}
-
-/* =========================
-   HOME
-========================= */
-
-function renderHome(){
-
-    const upcoming = services
-        .filter(x => !x.completed)
-        .sort((a,b)=>new Date(a.date)-new Date(b.date))
-        .slice(0,3);
-
-    const totalCost =
-        history.reduce((sum,x)=>sum + Number(x.cost || 0),0);
-
-    return `
-
-    <div class="welcome">
-
-        <h2>สวัสดี 👋</h2>
-
-        <p>ดูแลรถของคุณให้อยู่ในสภาพดีที่สุด</p>
-
-    </div>
-
-    <div class="stats">
-
-        <div class="stat">
-            <div class="emoji">🚗</div>
-            <h3>${cars.length}</h3>
-            <p>รถทั้งหมด</p>
-        </div>
-
-        <div class="stat">
-            <div class="emoji">🔧</div>
-            <h3>${services.filter(x=>!x.completed).length}</h3>
-            <p>รายการที่รอดำเนินการ</p>
-        </div>
-
-        <div class="stat">
-            <div class="emoji">💰</div>
-            <h3>${formatMoney(totalCost)}</h3>
-            <p>ค่าใช้จ่ายทั้งหมด</p>
-        </div>
-
-        <div class="stat">
-            <div class="emoji">📜</div>
-            <h3>${history.length}</h3>
-            <p>ประวัติการบำรุง</p>
-        </div>
-
-    </div>
-
-    <div class="section-title">
-
-        <h3>🚗 รถของฉัน</h3>
-
-        <button onclick="openCarModal()">
-            + เพิ่มรถ
-        </button>
-
-    </div>
-
-    ${
-        cars.length
-        ? cars.slice(0,2).map(carCard).join("")
-        : empty("🚗","ยังไม่มีข้อมูลรถ")
-    }
-
-    <div class="section-title">
-
-        <h3>🔔 กำหนดบำรุงใกล้ถึง</h3>
-
-        <button onclick="go('service')">
-            ดูทั้งหมด
-        </button>
-
-    </div>
-
-    ${
-        upcoming.length
-        ? upcoming.map(serviceCard).join("")
-        : empty("🔧","ไม่มีรายการใกล้ถึง")
-    }
-
-    `;
-}
-
-/* =========================
-   CARS
-========================= */
-
-function renderCars(){
-
-    return `
-
-    <div class="section-title">
-
-        <h3>รถของฉัน</h3>
-
-        <button onclick="openCarModal()">
-            + เพิ่มรถ
-        </button>
-
-    </div>
-
-    ${
-        cars.length
-        ? cars.map(carCard).join("")
-        : empty("🚗","ยังไม่มีรถ","กด + เพิ่มรถ เพื่อเริ่มต้น")
-    }
-
-    `;
-}
-
-function carCard(car){
-
-    return `
-
-    <div class="car-card">
-
-        <img class="car-img"
-             src="${car.image || placeholderImage()}"
-             onerror="this.src='${placeholderImage()}'">
-
-        <div class="car-info">
-
-            <h3>${escapeHTML(car.brand)} ${escapeHTML(car.model)}</h3>
-
-            <p>ปี ${car.year}</p>
-
-            ${car.plate ? `<p>ทะเบียน ${escapeHTML(car.plate)}</p>` : ""}
-
-            ${
-                car.mileage
-                ? `<p>เลขไมล์ ${Number(car.mileage).toLocaleString()} กม.</p>`
-                : ""
-            }
-
-            <span class="badge blue">
-                ${services.filter(x=>x.carId===car.id && !x.completed).length}
-                รายการ
-            </span>
-
-            <div class="actions">
-
-                <button class="small-btn edit"
-                        onclick="openCarModal('${car.id}')">
-                    ✏️ แก้ไข
-                </button>
-
-                <button class="small-btn delete"
-                        onclick="deleteCar('${car.id}')">
-                    🗑️ ลบ
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    `;
-}
-
-/* =========================
-   SERVICE
-========================= */
-
-function renderServices(){
-
-    const sorted = [...services]
-        .sort((a,b)=>new Date(a.date)-new Date(b.date));
-
-    return `
-
-    <div class="section-title">
-
-        <h3>รายการบำรุงรักษา</h3>
-
-        <button onclick="openServiceModal()">
-            + เพิ่มรายการ
-        </button>
-
-    </div>
-
-    ${
-        sorted.length
-        ? sorted.map(serviceCard).join("")
-        : empty("🔧","ยังไม่มีรายการบำรุงรักษา")
-    }
-
-    `;
-}
-
-function serviceCard(s){
-
-    const car = cars.find(c=>c.id===s.carId);
-
-    return `
-
-    <div class="maintenance">
-
-        <div class="maintenance-top">
-
-            <div>
-
-                <h4>${escapeHTML(s.title)}</h4>
-
-                <p>
-                    🚗 ${car
-                        ? escapeHTML(car.brand+" "+car.model)
-                        : "ไม่พบรถ"}
-                </p>
-
-                <p>📅 ${formatDate(s.date)}</p>
-
-                ${
-                    s.cost
-                    ? `<p>💰 ${formatMoney(s.cost)}</p>`
-                    : ""
-                }
-
-            </div>
-
-            <div>
-                ${
-                    s.completed
-                    ? `<span class="badge green">เสร็จแล้ว</span>`
-                    : `<span class="badge blue">รอดำเนินการ</span>`
-                }
-            </div>
-
-        </div>
-
-        ${
-            !s.completed
-            ? `<div class="countdown"
-                    data-date="${s.date}"
-                    id="count-${s.id}">
-                    กำลังคำนวณ...
-               </div>`
-            : ""
-        }
-
-        ${
-            s.note
-            ? `<p style="margin-top:10px">
-                📝 ${escapeHTML(s.note)}
-               </p>`
-            : ""
-        }
-
-        <div class="actions">
-
-            ${
-                !s.completed
-                ? `<button class="small-btn complete"
-                         onclick="completeService('${s.id}')">
-                         ✓ เสร็จแล้ว
-                       </button>`
-                : ""
-            }
-
-            <button class="small-btn edit"
-                    onclick="openServiceModal('${s.id}')">
-                ✏️ แก้ไข
-            </button>
-
-            <button class="small-btn delete"
-                    onclick="deleteService('${s.id}')">
-                🗑️ ลบ
-            </button>
-
-        </div>
-
-    </div>
-
-    `;
-}
-
-/* =========================
-   HISTORY
-========================= */
-
-function renderHistory(){
-
-    const sorted = [...history]
-        .sort((a,b)=>new Date(b.date)-new Date(a.date));
-
-    const total =
-        sorted.reduce((sum,x)=>sum+Number(x.cost||0),0);
-
-    return `
-
-    <div class="welcome">
-
-        <h2>💰 ค่าใช้จ่าย</h2>
-
-        <p>ค่าใช้จ่ายทั้งหมด ${formatMoney(total)}</p>
-
-    </div>
-
-    <div class="section-title">
-        <h3>ประวัติการบำรุงรักษา</h3>
-    </div>
-
-    ${
-        sorted.length
-        ? sorted.map(historyCard).join("")
-        : empty("📜","ยังไม่มีประวัติ")
-    }
-
-    `;
-}
-
-function historyCard(h){
-
-    const car = cars.find(c=>c.id===h.carId);
-
-    return `
-
-    <div class="history">
-
-        <div class="history-row">
-
-            <div>
-
-                <strong>${escapeHTML(h.title)}</strong>
-
-                <p style="font-size:12px;color:#777;margin-top:5px">
-                    ${car
-                        ? escapeHTML(car.brand+" "+car.model)
-                        : ""}
-                </p>
-
-                <p style="font-size:12px;color:#777">
-                    ${formatDate(h.date)}
-                </p>
-
-            </div>
-
-            <div class="price">
-                ${formatMoney(h.cost)}
-            </div>
-
-        </div>
-
-        <div class="actions">
-
-            <button class="small-btn delete"
-                    onclick="deleteHistory('${h.id}')">
-                🗑️ ลบ
-            </button>
-
-        </div>
-
-    </div>
-
-    `;
-}
-
-/* =========================
-   SETTINGS
-========================= */
-
-function renderSettings(){
-
-    const user = localStorage.getItem("carcare_user") || "";
-
-    return `
-
-    <div class="form-card">
-
-        <h3>⚙️ ตั้งค่า</h3>
-
-        <br>
-
-        <div class="field">
-
-            <label>ชื่อผู้ใช้</label>
-
-            <input value="${escapeHTML(user)}"
-                   disabled>
-
-        </div>
-
-        <button class="primary"
-                onclick="requestNotification()">
-            🔔 เปิดการแจ้งเตือน
-        </button>
-
-        <br><br>
-
-        <button class="primary"
-                onclick="testNotification()">
-            🧪 ทดสอบแจ้งเตือน
-        </button>
-
-        <br><br>
-
-        <button class="primary"
-                style="background:#dc2626"
-                onclick="logout()">
-            🚪 ออกจากระบบ
-        </button>
-
-    </div>
-
-    <div class="form-card" style="margin-top:15px">
-
-        <h3>💾 ข้อมูล</h3>
-
-        <p style="margin-top:10px;color:#777;font-size:13px">
-            ข้อมูลรถ รายการบำรุง และประวัติถูกบันทึกไว้
-            ในเบราว์เซอร์ของอุปกรณ์นี้
-        </p>
-
-        <br>
-
-        <button class="small-btn delete"
-                onclick="clearAllData()">
-            🗑️ ล้างข้อมูลทั้งหมด
-        </button>
-
-    </div>
-
-    `;
-}
-
-/* =========================
-   PAGE ROUTER
-========================= */
-
-function renderPage(){
-
-    const page = document.getElementById("page");
-
-    if(currentPage==="home")
-        page.innerHTML = renderHome();
-
-    if(currentPage==="cars")
-        page.innerHTML = renderCars();
-
-    if(currentPage==="service")
-        page.innerHTML = renderServices();
-
-    if(currentPage==="history")
-        page.innerHTML = renderHistory();
-
-    if(currentPage==="settings")
-        page.innerHTML = renderSettings();
-}
-
-/* =========================
-   CAR MODAL
-========================= */
-
-function openCarModal(id=null){
-
-    editingCar = id;
-
-    const car = id
-        ? cars.find(c=>c.id===id)
-        : null;
-
-    const brands = Object.keys(carModels);
-
-    document.getElementById("app").insertAdjacentHTML(
-        "beforeend",
-
-        `
-        <div class="modal" id="carModal"
-             style="display:flex">
-
-            <div class="modal-box">
-
-                <div class="modal-head">
-
-                    <h3>${car ? "✏️ แก้ไขรถ" : "🚗 เพิ่มรถ"}</h3>
-
-                    <button class="close"
-                            onclick="closeModal()">
-                        ✕
+            <!-- Role Switcher & Notification Toggle -->
+            <div class="flex items-center space-x-3 mt-2 sm:mt-0">
+                <div class="bg-slate-800/80 p-1 rounded-xl border border-slate-700 flex items-center">
+                    <button onclick="switchRole('customer')" id="btn-role-customer" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 text-slate-300 hover:text-white">
+                        <i class="fa-solid fa-user"></i>
+                        <span>มุมมองลูกค้า</span>
                     </button>
-
+                    <button onclick="switchRole('admin')" id="btn-role-admin" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 bg-blue-600 text-white shadow">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <span>มุมมองแอดมิน/พนักงาน</span>
+                    </button>
                 </div>
 
-                <div class="image-upload">
-
-                    <img id="carPreview"
-                         class="preview"
-                         src="${car?.image || placeholderImage()}">
-
-                    <label class="upload-btn">
-                        📷 เลือกรูปรถ
-                        <input type="file"
-                               id="carImage"
-                               accept="image/*"
-                               onchange="previewCarImage(event)">
-                    </label>
-
+                <!-- Notification Bell -->
+                <div class="relative">
+                    <button onclick="toggleNotificationModal()" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl border border-slate-700 text-slate-200 relative transition">
+                        <i class="fa-solid fa-bell"></i>
+                        <span id="notif-badge" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold shadow">3</span>
+                    </button>
                 </div>
+            </div>
+        </div>
+    </header>
 
-                <div class="field">
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 overflow-y-auto">
 
-                    <label>ยี่ห้อรถ *</label>
-
-                    <select id="carBrand"
-                            onchange="updateModels()">
-
-                        <option value="">เลือกยี่ห้อ</option>
-
-                        ${
-                            brands.map(b=>
-                                `<option value="${b}"
-                                    ${car?.brand===b?"selected":""}>
-                                    ${b}
-                                </option>`
-                            ).join("")
-                        }
-
-                    </select>
-
+        <!-- ================= CUSTOMER VIEW ================= -->
+        <div id="view-customer" class="space-y-6 hidden fade-in">
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 translate-x-8 translate-y-8 opacity-10 text-9xl">
+                    <i class="fa-solid fa-soap"></i>
                 </div>
-
-                <div class="field">
-
-                    <label>รุ่นรถ *</label>
-
-                    <select id="carModel">
-
-                        <option value="">
-                            เลือกรุ่นรถ
-                        </option>
-
-                    </select>
-
+                <div class="max-w-xl relative z-10">
+                    <span class="bg-white/20 text-blue-100 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">จองคิวออนไลน์สะดวกรวดเร็ว</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold mt-2">มอบความเงางามระดับพรีเมียมให้รถคุณ</h2>
+                    <p class="text-blue-100 text-sm mt-1">เลือกบริการ คำนวณราคาอัตโนมัติ และจองคิวเข้ารับบริการได้ทันทีโดยไม่ต้องรอนาน</p>
                 </div>
-
-                <div class="field">
-
-                    <label>ปีรถ *</label>
-
-                    <select id="carYear">
-
-                        <option value="">เลือกปี</option>
-
-                        ${
-                            Array.from(
-                                {length:40},
-                                (_,i)=>2026-i
-                            ).map(y=>
-                                `<option value="${y}"
-                                    ${car?.year==y?"selected":""}>
-                                    ${y}
-                                </option>`
-                            ).join("")
-                        }
-
-                    </select>
-
-                </div>
-
-                <div class="field">
-
-                    <label>ทะเบียนรถ</label>
-
-                    <input id="carPlate"
-                           value="${car?.plate || ""}"
-                           placeholder="เช่น กข 1234">
-
-                </div>
-
-                <div class="field">
-
-                    <label>เลขไมล์ปัจจุบัน</label>
-
-                    <input id="carMileage"
-                           type="number"
-                           value="${car?.mileage || ""}"
-                           placeholder="เช่น 45000">
-
-                </div>
-
-                <button class="primary"
-                        onclick="saveCar()">
-
-                    💾 ${car ? "บันทึกการแก้ไข" : "เพิ่มรถ"}
-
-                </button>
-
             </div>
 
-        </div>
-        `
-    );
-
-    updateModels(car?.model);
-}
-
-function updateModels(selected=""){
-
-    const brand = document.getElementById("carBrand")?.value;
-
-    const model = document.getElementById("carModel");
-
-    if(!model) return;
-
-    model.innerHTML =
-        `<option value="">เลือกรุ่นรถ</option>`;
-
-    if(!brand) return;
-
-    carModels[brand].forEach(m=>{
-
-        model.innerHTML += `
-            <option value="${m}"
-                ${m===selected?"selected":""}>
-                ${m}
-            </option>
-        `;
-
-    });
-}
-
-function previewCarImage(event){
-
-    const file = event.target.files[0];
-
-    if(!file) return;
-
-    const reader = new FileReader();
-
-    reader.onload = e=>{
-
-        document.getElementById("carPreview").src =
-            e.target.result;
-
-    };
-
-    reader.readAsDataURL(file);
-}
-
-function saveCar(){
-
-    const brand =
-        document.getElementById("carBrand").value;
-
-    const model =
-        document.getElementById("carModel").value;
-
-    const year =
-        document.getElementById("carYear").value;
-
-    const plate =
-        document.getElementById("carPlate").value.trim();
-
-    const mileage =
-        document.getElementById("carMileage").value;
-
-    const image =
-        document.getElementById("carPreview").src;
-
-    if(!brand || !model || !year){
-
-        toast("กรุณากรอกข้อมูลรถให้ครบ");
-
-        return;
-    }
-
-    if(editingCar){
-
-        const car =
-            cars.find(c=>c.id===editingCar);
-
-        car.brand = brand;
-        car.model = model;
-        car.year = year;
-        car.plate = plate;
-        car.mileage = mileage;
-        car.image =
-            image.startsWith("data:")
-            ? image
-            : car.image;
-
-        toast("แก้ไขข้อมูลรถแล้ว");
-
-    }else{
-
-        cars.push({
-
-            id:Date.now().toString(),
-
-            brand,
-            model,
-            year,
-            plate,
-            mileage,
-            image:image.startsWith("data:")
-                ? image
-                : ""
-
-        });
-
-        toast("เพิ่มรถเรียบร้อยแล้ว");
-    }
-
-    saveData();
-
-    closeModal();
-
-    render();
-}
-
-function deleteCar(id){
-
-    if(!confirm("ต้องการลบรถคันนี้หรือไม่?")) return;
-
-    cars = cars.filter(c=>c.id!==id);
-
-    services = services.filter(s=>s.carId!==id);
-
-    history = history.filter(h=>h.carId!==id);
-
-    saveData();
-
-    render();
-
-    toast("ลบรถแล้ว");
-}
-
-/* =========================
-   SERVICE MODAL
-========================= */
-
-function openServiceModal(id=null){
-
-    if(!cars.length){
-
-        toast("กรุณาเพิ่มรถก่อน");
-
-        return;
-    }
-
-    editingService = id;
-
-    const s = id
-        ? services.find(x=>x.id===id)
-        : null;
-
-    document.getElementById("app").insertAdjacentHTML(
-        "beforeend",
-
-        `
-        <div class="modal"
-             id="serviceModal"
-             style="display:flex">
-
-            <div class="modal-box">
-
-                <div class="modal-head">
-
-                    <h3>
-                        ${s
-                            ? "✏️ แก้ไขรายการ"
-                            : "🔧 เพิ่มรายการบำรุง"}
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Booking Form -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 lg:col-span-1">
+                    <h3 id="form-heading" class="text-base font-bold text-slate-800 mb-4 flex items-center">
+                        <i class="fa-solid fa-calendar-plus text-blue-600 mr-2"></i> สร้างรายการจองคิวใหม่
                     </h3>
-
-                    <button class="close"
-                            onclick="closeModal()">
-                        ✕
-                    </button>
-
+                    <form id="bookingForm" onsubmit="handleBookingSubmit(event)" class="space-y-4">
+                        <input type="hidden" id="edit-order-id" value="">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">ชื่อ-นามสกุลลูกค้า</label>
+                            <input type="text" id="cust-name" required placeholder="เช่น สมชาย ใจดี" class="w-full px-3 py-2 text-sm border rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">เบอร์โทรศัพท์</label>
+                            <input type="tel" id="cust-phone" required placeholder="0812345678" class="w-full px-3 py-2 text-sm border rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">ทะเบียนรถ & รุ่นรถ</label>
+                            <input type="text" id="cust-car" required placeholder="กข 1234 (Honda Civic)" class="w-full px-3 py-2 text-sm border rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">เลือกบริการหลัก</label>
+                            <select id="cust-service" onchange="calculateTotal()" class="w-full px-3 py-2 text-sm border rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                <option value="250">ล้างสี + ดูดฝุ่น (250 ฿)</option>
+                                <option value="550">ล้างสี + เคลือบสี (550 ฿)</option>
+                                <option value="1200">เคลือบแก้ว & Detailing (1,200 ฿)</option>
+                                <option value="400">ล้างห้องเครื่อง + อัดฉีดช่วงล่าง (400 ฿)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">บริการเสริม (Add-on)</label>
+                            <div class="space-y-2 bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs">
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="checkbox" value="100" onchange="calculateTotal()" class="addon-checkbox rounded text-blue-600 focus:ring-blue-500">
+                                    <span>อบโอโซนฆ่าเชื้อ (+100 ฿)</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="checkbox" value="150" onchange="calculateTotal()" class="addon-checkbox rounded text-blue-600 focus:ring-blue-500">
+                                    <span>ล้างแอร์รถยนต์ (+150 ฿)</span>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- Automated Calculation Display -->
+                        <div class="bg-blue-50 border border-blue-100 p-3.5 rounded-xl flex justify-between items-center">
+                            <div>
+                                <span class="text-xs text-blue-600 font-medium">คำนวณราคาอัตโนมัติ</span>
+                                <div class="text-lg font-bold text-blue-900" id="display-total">250 ฿</div>
+                            </div>
+                            <span class="text-xs bg-blue-200 text-blue-800 px-2 py-1 rounded-lg font-semibold"><i class="fa-solid fa-wand-magic-sparkles"></i> Auto</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button type="submit" id="submit-booking-btn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-xl shadow transition text-sm">
+                                ยืนยันการจองคิว
+                            </button>
+                            <button type="button" id="cancel-edit-btn" onclick="cancelEditBooking()" class="hidden bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-2.5 px-4 rounded-xl transition text-sm">
+                                ยกเลิก
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
-                <div class="field">
-
-                    <label>เลือกรถ *</label>
-
-                    <select id="serviceCar">
-
-                        ${
-                            cars.map(c=>
-                                `<option value="${c.id}"
-                                    ${s?.carId===c.id?"selected":""}>
-                                    ${escapeHTML(c.brand)}
-                                    ${escapeHTML(c.model)}
-                                    ${c.year}
-                                </option>`
-                            ).join("")
-                        }
-
-                    </select>
-
+                <!-- Customer Active Tracking & History -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 lg:col-span-2 flex flex-col">
+                    <h3 class="text-base font-bold text-slate-800 mb-4 flex items-center justify-between">
+                        <span><i class="fa-solid fa-list-check text-blue-600 mr-2"></i> ติดตามสถานะรถของคุณ</span>
+                        <span class="text-xs font-normal text-slate-500">อัปเดตแบบเรียลไทม์</span>
+                    </h3>
+                    <div class="flex-1 overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-sm">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-600 text-xs">
+                                    <th class="p-3 rounded-l-xl">รหัส / ทะเบียน</th>
+                                    <th class="p-3">บริการ</th>
+                                    <th class="p-3">ราคา</th>
+                                    <th class="p-3">สถานะปัจจุบัน</th>
+                                    <th class="p-3 rounded-r-xl text-right">เวลาจอง</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customer-order-list" class="divide-y divide-slate-100">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="field">
-
-                    <label>รายการบำรุง *</label>
-
-                    <select id="serviceTitle">
-
-                        ${[
-                            "เปลี่ยนน้ำมันเครื่อง",
-                            "เปลี่ยนไส้กรองน้ำมันเครื่อง",
-                            "เปลี่ยนไส้กรองอากาศ",
-                            "เปลี่ยนผ้าเบรก",
-                            "ตรวจเช็กเบรก",
-                            "เปลี่ยนแบตเตอรี่",
-                            "เปลี่ยนยางรถยนต์",
-                            "ตั้งศูนย์ถ่วงล้อ",
-                            "ตรวจเช็กระบบแอร์",
-                            "ตรวจเช็กเครื่องยนต์",
-                            "ต่อประกันรถยนต์",
-                            "ต่อภาษีรถยนต์",
-                            "อื่น ๆ"
-                        ].map(x=>
-                            `<option value="${x}"
-                                ${s?.title===x?"selected":""}>
-                                ${x}
-                            </option>`
-                        ).join("")}
-
-                    </select>
-
+        <!-- ================= ADMIN / STAFF VIEW ================= -->
+        <div id="view-admin" class="space-y-6 fade-in">
+            <!-- Dashboard Reports Summary Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-medium text-slate-500">รอดำเนินการ (รอคิว)</p>
+                        <h3 id="stat-pending" class="text-2xl font-bold text-amber-600 mt-1">0</h3>
+                    </div>
+                    <div class="bg-amber-100 text-amber-600 w-12 h-12 rounded-2xl flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
                 </div>
-
-                <div class="field">
-
-                    <label>วันครบกำหนด *</label>
-
-                    <input id="serviceDate"
-                           type="date"
-                           value="${s?.date || ""}">
-
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-medium text-slate-500">กำลังให้บริการ</p>
+                        <h3 id="stat-process" class="text-2xl font-bold text-blue-600 mt-1">0</h3>
+                    </div>
+                    <div class="bg-blue-100 text-blue-600 w-12 h-12 rounded-2xl flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-rotate"></i>
+                    </div>
                 </div>
-
-                <div class="field">
-
-                    <label>ค่าใช้จ่ายโดยประมาณ</label>
-
-                    <input id="serviceCost"
-                           type="number"
-                           min="0"
-                           value="${s?.cost || ""}"
-                           placeholder="เช่น 1500">
-
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-medium text-slate-500">เสร็จสิ้นวันนี้</p>
+                        <h3 id="stat-done" class="text-2xl font-bold text-emerald-600 mt-1">0</h3>
+                    </div>
+                    <div class="bg-emerald-100 text-emerald-600 w-12 h-12 rounded-2xl flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
                 </div>
-
-                <div class="field">
-
-                    <label>หมายเหตุ</label>
-
-                    <textarea id="serviceNote"
-                              rows="3"
-                              placeholder="รายละเอียดเพิ่มเติม">${s?.note || ""}</textarea>
-
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-medium text-slate-500">รายได้รวมทั้งหมด</p>
+                        <h3 id="stat-income" class="text-2xl font-bold text-indigo-600 mt-1">0 ฿</h3>
+                    </div>
+                    <div class="bg-indigo-100 text-indigo-600 w-12 h-12 rounded-2xl flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
                 </div>
-
-                <button class="primary"
-                        onclick="saveService()">
-
-                    💾 บันทึกรายการ
-
-                </button>
-
             </div>
 
+            <!-- Analytics Chart Section -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <h3 class="text-sm font-bold text-slate-800 mb-3"><i class="fa-solid fa-chart-pie text-blue-600 mr-2"></i> สรุปสัดส่วนสถานะงานในระบบ (Donut Chart)</h3>
+                <div class="w-full h-48 flex justify-center">
+                    <canvas id="statusChart" class="max-h-48"></canvas>
+                </div>
+            </div>
+
+            <!-- Management Table -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <div>
+                        <h3 class="text-base font-bold text-slate-800"><i class="fa-solid fa-gears text-blue-600 mr-2"></i> จัดการธุรกรรมและสถานะคิว (Admin Portal)</h3>
+                        <p class="text-xs text-slate-500">ควบคุมขั้นตอนการล้างรถตั้งแต่รับรถ ตรวจสอบ จนถึงปิดงาน</p>
+                    </div>
+                    <div class="flex items-center space-x-2 w-full sm:w-auto">
+                        <input type="text" id="admin-search" oninput="renderAdminTable()" placeholder="ค้นหาชื่อ, ทะเบียนรถ..." class="px-3 py-1.5 text-xs border rounded-xl w-full sm:w-64 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- Admin Orders Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-600 text-xs">
+                                <th class="p-3 rounded-l-xl">ID / เวลา</th>
+                                <th class="p-3">ลูกค้า & ทะเบียนรถ</th>
+                                <th class="p-3">รายการบริการ</th>
+                                <th class="p-3">ยอดชำระ</th>
+                                <th class="p-3">สถานะงาน</th>
+                                <th class="p-3 rounded-r-xl text-center">จัดการสถานะ / แก้ไข / ลบ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-order-table" class="divide-y divide-slate-100">
+                            <!-- Rows generated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        `
-    );
-}
-
-function saveService(){
-
-    const carId =
-        document.getElementById("serviceCar").value;
-
-    const title =
-        document.getElementById("serviceTitle").value;
-
-    const date =
-        document.getElementById("serviceDate").value;
-
-    const cost =
-        document.getElementById("serviceCost").value;
-
-    const note =
-        document.getElementById("serviceNote").value.trim();
-
-    if(!carId || !title || !date){
-
-        toast("กรุณากรอกข้อมูลให้ครบ");
-
-        return;
-    }
-
-    if(editingService){
-
-        const s =
-            services.find(x=>x.id===editingService);
-
-        s.carId = carId;
-        s.title = title;
-        s.date = date;
-        s.cost = cost;
-        s.note = note;
-
-        toast("แก้ไขรายการแล้ว");
-
-    }else{
-
-        services.push({
-
-            id:Date.now().toString(),
-
-            carId,
-            title,
-            date,
-            cost,
-            note,
-
-            completed:false
-
-        });
-
-        toast("เพิ่มรายการบำรุงแล้ว");
-
-    }
-
-    saveData();
-
-    closeModal();
-
-    render();
-
-    checkNotifications();
-}
-
-function deleteService(id){
-
-    if(!confirm("ต้องการลบรายการนี้หรือไม่?"))
-        return;
-
-    services =
-        services.filter(x=>x.id!==id);
-
-    saveData();
-
-    render();
-
-    toast("ลบรายการแล้ว");
-}
-
-function completeService(id){
-
-    const s =
-        services.find(x=>x.id===id);
-
-    if(!s) return;
-
-    s.completed = true;
-
-    history.push({
-
-        id:Date.now().toString(),
-
-        carId:s.carId,
-
-        title:s.title,
-
-        date:new Date().toISOString().split("T")[0],
-
-        cost:s.cost || 0
-
-    });
-
-    saveData();
-
-    render();
-
-    toast("บันทึกเข้าประวัติแล้ว");
-}
-
-/* =========================
-   HISTORY DELETE
-========================= */
-
-function deleteHistory(id){
-
-    if(!confirm("ต้องการลบประวัตินี้หรือไม่?"))
-        return;
-
-    history =
-        history.filter(x=>x.id!==id);
-
-    saveData();
-
-    render();
-
-    toast("ลบประวัติแล้ว");
-}
-
-/* =========================
-   COUNTDOWN
-========================= */
-
-function updateCountdowns(){
-
-    document.querySelectorAll("[data-date]")
-        .forEach(el=>{
-
-            const date = new Date(
-                el.dataset.date + "T23:59:59"
-            );
-
-            const now = new Date();
-
-            const diff =
-                date.getTime() - now.getTime();
-
-            const days =
-                Math.ceil(diff / 86400000);
-
-            if(days < 0){
-
-                el.innerHTML =
-                    "⚠️ เลยกำหนดแล้ว";
-
-                el.classList.add("danger");
-
-            }else if(days === 0){
-
-                el.innerHTML =
-                    "🔔 วันนี้ถึงกำหนด!";
-
-                el.classList.add("danger");
-
-            }else if(days <= 7){
-
-                el.innerHTML =
-                    "⚠️ เหลือ " + days + " วัน";
-
-                el.classList.add("warning");
-
-            }else{
-
-                el.innerHTML =
-                    "⏳ เหลือ " + days + " วัน";
-
-            }
-
-        });
-}
-
-/* =========================
-   NOTIFICATION
-========================= */
-
-async function requestNotification(){
-
-    if(!("Notification" in window)){
-
-        toast("เบราว์เซอร์นี้ไม่รองรับการแจ้งเตือน");
-
-        return;
-    }
-
-    const permission =
-        await Notification.requestPermission();
-
-    if(permission==="granted"){
-
-        toast("เปิดการแจ้งเตือนแล้ว");
-
-        checkNotifications();
-
-    }else{
-
-        toast("กรุณาอนุญาตการแจ้งเตือนจากเบราว์เซอร์");
-
-    }
-}
-
-function testNotification(){
-
-    if(!("Notification" in window)){
-
-        toast("เบราว์เซอร์ไม่รองรับ Notification");
-
-        return;
-    }
-
-    if(Notification.permission !== "granted"){
-
-        requestNotification();
-
-        return;
-    }
-
-    new Notification("🚗 CarCare",{
-
-        body:"นี่คือการแจ้งเตือนทดสอบ ระบบพร้อมแจ้งเตือนคุณแล้ว",
-
-    });
-
-    toast("ส่งการแจ้งเตือนทดสอบแล้ว");
-}
-
-function checkNotifications(){
-
-    if(!("Notification" in window))
-        return;
-
-    if(Notification.permission !== "granted")
-        return;
-
-    const today =
-        new Date();
-
-    services.forEach(s=>{
-
-        if(s.completed) return;
-
-        const date =
-            new Date(s.date+"T23:59:59");
-
-        const diff =
-            Math.ceil(
-                (date-today)/86400000
-            );
-
-        if(diff>=0 && diff<=3){
-
-            const key =
-                "notify_"+s.id+"_"+s.date;
-
-            if(!localStorage.getItem(key)){
-
-                new Notification("🚗 CarCare",{
-
-                    body:
-                    diff===0
-                    ? `วันนี้ถึงกำหนด ${s.title}`
-                    : `${s.title} จะถึงกำหนดใน ${diff} วัน`
-
-                });
-
-                localStorage.setItem(key,"true");
-            }
-        }
-
-    });
-}
-
-/* =========================
-   UTILITIES
-========================= */
-
-function closeModal(){
-
-    const modal =
-        document.querySelector(".modal");
-
-    if(modal)
-        modal.remove();
-
-    editingCar = null;
-    editingService = null;
-}
-
-function empty(icon,title,text=""){
-
-    return `
-
-    <div class="empty">
-
-        <div class="empty-icon">${icon}</div>
-
-        <h3>${title}</h3>
-
-        ${
-            text
-            ? `<p style="margin-top:7px">${text}</p>`
-            : ""
-        }
-
+    </main>
+
+    <!-- Notification Drawer Modal -->
+    <div id="notification-modal" class="fixed inset-0 bg-slate-900/50 z-50 flex justify-end hidden backdrop-blur-xs transition-all">
+        <div class="bg-white w-full max-w-sm h-full shadow-2xl flex flex-col p-6 animate-in slide-in-from-right duration-200">
+            <div class="flex justify-between items-center pb-4 border-b">
+                <h3 class="font-bold text-slate-800 flex items-center">
+                    <i class="fa-solid fa-bell text-blue-600 mr-2"></i> ประวัติการแจ้งเตือน (Logs)
+                </h3>
+                <button onclick="toggleNotificationModal()" class="text-slate-400 hover:text-slate-600 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="notification-list" class="flex-1 overflow-y-auto py-4 space-y-3">
+                <!-- Notifications populated here -->
+            </div>
+            <div class="pt-3 border-t">
+                <button onclick="clearNotifications()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold py-2 rounded-xl transition">
+                    ล้างประวัติการแจ้งเตือน
+                </button>
+            </div>
+        </div>
     </div>
 
-    `;
-}
+    <!-- Custom Alert Modal -->
+    <div id="custom-modal" class="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 text-center">
+            <div id="modal-icon" class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 text-xl flex items-center justify-center mx-auto">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <h3 id="modal-title" class="text-lg font-bold text-slate-800">แจ้งเตือนระบบ</h3>
+            <p id="modal-message" class="text-sm text-slate-600">ข้อความรายละเอียด...</p>
+            <div class="flex justify-center space-x-3 pt-2">
+                <button id="modal-btn-confirm" onclick="closeCustomModal()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-5 py-2.5 rounded-xl font-semibold shadow transition">ตกลง</button>
+            </div>
+        </div>
+    </div>
 
-function placeholderImage(){
+    <script>
+        let currentRole = 'admin'; // Start in admin mode by default as requested
+        let chartInstance = null;
 
-    return "data:image/svg+xml;charset=UTF-8," +
-        encodeURIComponent(`
-        <svg xmlns="http://www.w3.org/2000/svg"
-             width="300"
-             height="200">
-            <rect width="100%"
-                  height="100%"
-                  fill="#e9eef5"/>
-            <text x="50%"
-                  y="50%"
-                  dominant-baseline="middle"
-                  text-anchor="middle"
-                  font-size="60">
-                🚗
-            </text>
-        </svg>
-        `);
-}
+        // 10 Initial Sample Bookings fulfilling CRUD & lifecycle requirements
+        let orders = [
+            { id: "ORD-1001", time: "08:30 น.", name: "คุณวิชัย โชคดี", phone: "0891234567", car: "กค 8899 (Toyota Camry)", service: "ล้างสี + เคลือบสี", addons: ["อบโอโซนฆ่าเชื้อ"], price: 650, status: "กำลังให้บริการ" },
+            { id: "ORD-1002", time: "09:15 น.", name: "คุณนารี สุกสวัสดิ์", phone: "0819876543", car: "ขค 5544 (Honda CR-V)", service: "เคลือบแก้ว & Detailing", addons: [], price: 1200, status: "รอคิว" },
+            { id: "ORD-1003", time: "09:40 น.", name: "คุณธนพล มั่งมี", phone: "0865554433", car: "กท 111 (BMW 330e)", service: "ล้างสี + ดูดฝุ่น", addons: ["ล้างแอร์รถยนต์"], price: 400, status: "เสร็จสิ้น" },
+            { id: "ORD-1004", time: "10:00 น.", name: "คุณกanyา รักษ์ไทย", phone: "0823334455", car: "ฆณ 9988 (Mazda 2)", service: "ล้างห้องเครื่อง + อัดฉีดช่วงล่าง", addons: [], price: 400, status: "รอคิว" },
+            { id: "ORD-1005", time: "10:20 น.", name: "คุณอภิสิทธิ์ วงศ์ใหญ่", phone: "0841112233", car: "3กจ 1234 (Isuzu D-Max)", service: "ล้างสี + ดูดฝุ่น", addons: [], price: 250, status: "กำลังให้บริการ" },
+            { id: "ORD-1006", time: "10:45 น.", name: "คุณศิริพร ใจดี", phone: "0887778899", car: "กพ 4455 (Honda City)", service: "ล้างสี + เคลือบสี", addons: ["อบโอโซนฆ่าเชื้อ"], price: 650, status: "ตรวจสอบ" },
+            { id: "ORD-1007", time: "11:00 น.", name: "คุณพงษ์ศักดิ์ รักสะอาด", phone: "0856667788", car: "ญร 7788 (Mercedes-Benz C220d)", service: "เคลือบแก้ว & Detailing", addons: ["ล้างแอร์รถยนต์"], price: 1350, status: "เสร็จสิ้น" },
+            { id: "ORD-1008", time: "11:30 น.", name: "คุณสุดารัตน์ งามวิไล", phone: "0839990011", car: "กม 5566 (Toyota Yaris)", service: "ล้างสี + ดูดฝุ่น", addons: [], price: 250, status: "รอคิว" },
+            { id: "ORD-1009", time: "12:00 น.", name: "คุณชาญชัย กล้าหาญ", phone: "0814445566", car: "6กฉ 9876 (Ford Ranger)", service: "ล้างห้องเครื่อง + อัดฉีดช่วงล่าง", addons: ["อบโอโซนฆ่าเชื้อ"], price: 500, status: "กำลังให้บริการ" },
+            { id: "ORD-1010", time: "12:30 น.", name: "คุณรัตนาภรณ์ มีทรัพย์", phone: "0898889900", car: "กต 1122 (MG HS)", service: "ล้างสี + เคลือบสี", addons: [], price: 550, status: "เสร็จสิ้น" }
+        ];
 
-function formatMoney(number){
+        let notifications = [
+            { title: "ระบบเริ่มต้น", desc: "โหลดฐานข้อมูลตัวอย่าง 10 รายการสำเร็จเรียบร้อย", time: "08:00 น." },
+            { title: "อัปเดตสถานะ", desc: "ออร์เดอร์ ORD-1003 ดำเนินการล้างเสร็จสิ้น", time: "10:10 น." },
+            { title: "ออร์เดอร์ใหม่", desc: "คุณรัตนาภรณ์ จองคิวล้างสี + เคลือบสี เรียบร้อย", time: "12:30 น." }
+        ];
 
-    return Number(number || 0)
-        .toLocaleString("th-TH") + " บาท";
-}
+        // Switch role between customer and admin
+        function switchRole(role) {
+            currentRole = role;
+            const custBtn = document.getElementById('btn-role-customer');
+            const adminBtn = document.getElementById('btn-role-admin');
+            const custView = document.getElementById('view-customer');
+            const adminView = document.getElementById('view-admin');
 
-function formatDate(date){
-
-    if(!date) return "-";
-
-    return new Date(date+"T00:00:00")
-        .toLocaleDateString(
-            "th-TH",
-            {
-                day:"numeric",
-                month:"long",
-                year:"numeric"
+            if (role === 'customer') {
+                custBtn.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 bg-blue-600 text-white shadow";
+                adminBtn.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 text-slate-300 hover:text-white";
+                custView.classList.remove('hidden');
+                adminView.classList.add('hidden');
+            } else {
+                adminBtn.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 bg-blue-600 text-white shadow";
+                custBtn.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 text-slate-300 hover:text-white";
+                adminView.classList.remove('hidden');
+                custView.classList.add('hidden');
+                renderAdminDashboard();
             }
-        );
-}
+        }
 
-function escapeHTML(str){
+        // Automated Calculation
+        function calculateTotal() {
+            const basePrice = parseInt(document.getElementById('cust-service').value) || 0;
+            let addonsTotal = 0;
+            const checkboxes = document.querySelectorAll('.addon-checkbox:checked');
+            checkboxes.forEach(cb => {
+                addonsTotal += parseInt(cb.value);
+            });
+            const total = basePrice + addonsTotal;
+            document.getElementById('display-total').innerText = total.toLocaleString() + " ฿";
+            return total;
+        }
 
-    if(!str) return "";
+        // Handle Form Submission for Create & Edit
+        function handleBookingSubmit(event) {
+            event.preventDefault();
+            const editId = document.getElementById('edit-order-id').value;
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const car = document.getElementById('cust-car').value;
+            
+            const serviceSelect = document.getElementById('cust-service');
+            const serviceName = serviceSelect.options[serviceSelect.selectedIndex].text.split(' (')[0];
+            
+            let addons = [];
+            const checkboxes = document.querySelectorAll('.addon-checkbox:checked');
+            checkboxes.forEach(cb => {
+                if (cb.value === "100") addons.push("อบโอโซนฆ่าเชื้อ");
+                if (cb.value === "150") addons.push("ล้างแอร์รถยนต์");
+            });
 
-    return String(str)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-}
+            const totalPrice = calculateTotal();
+            const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + " น.";
 
-function toast(message){
+            if (editId) {
+                // Edit existing order
+                const order = orders.find(o => o.id === editId);
+                if (order) {
+                    order.name = name;
+                    order.phone = phone;
+                    order.car = car;
+                    order.service = serviceName;
+                    order.addons = addons;
+                    order.price = totalPrice;
+                    addNotification("แก้ไขข้อมูล", `อัปเดตข้อมูลออร์เดอร์ ${editId} สำเร็จ`);
+                    showCustomModal("อัปเดตสำเร็จ!", `ข้อมูลของรถทะเบียน ${car} ถูกแก้ไขเรียบร้อยแล้ว`, "success");
+                }
+                cancelEditBooking();
+            } else {
+                // Create new order
+                const newId = "ORD-" + Math.floor(1000 + Math.random() * 9000);
+                const newOrder = {
+                    id: newId,
+                    time: nowTime,
+                    name: name,
+                    phone: phone,
+                    car: car,
+                    service: serviceName,
+                    addons: addons,
+                    price: totalPrice,
+                    status: "รอคิว"
+                };
+                orders.unshift(newOrder);
+                addNotification("สร้างออร์เดอร์ใหม่", `ลูกค้า ${name} (${car}) จองคิวบริการ ${serviceName}`);
+                document.getElementById('bookingForm').reset();
+                calculateTotal();
+                showCustomModal("จองคิวสำเร็จ!", `รหัสคิวของคุณคือ ${newId} ระบบได้บันทึกข้อมูลเรียบร้อยแล้ว`, "success");
+            }
 
-    const el =
-        document.getElementById("toast");
+            renderAllViews();
+        }
 
-    el.textContent = message;
+        // Edit booking setup
+        function editOrder(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (!order) return;
 
-    el.classList.add("show");
+            // Switch to customer tab to edit in the form
+            switchRole('customer');
+            document.getElementById('edit-order-id').value = order.id;
+            document.getElementById('cust-name').value = order.name;
+            document.getElementById('cust-phone').value = order.phone;
+            document.getElementById('cust-car').value = order.car;
 
-    setTimeout(()=>{
-        el.classList.remove("show");
-    },2500);
-}
+            // Select service matching value
+            const select = document.getElementById('cust-service');
+            for (let i = 0; i < select.options.length; i++) {
+                if (select.options[i].text.includes(order.service)) {
+                    select.selectedIndex = i;
+                    break;
+                }
+            }
 
-function toggleDark(){
+            // Check addons
+            const checkboxes = document.querySelectorAll('.addon-checkbox');
+            checkboxes.forEach(cb => {
+                if (cb.value === "100" && order.addons.includes("อบโอโซนฆ่าเชื้อ")) cb.checked = true;
+                if (cb.value === "150" && order.addons.includes("ล้างแอร์รถยนต์")) cb.checked = true;
+            });
 
-    document.body.classList.toggle("dark");
+            calculateTotal();
+            document.getElementById('form-heading').innerHTML = `<i class="fa-solid fa-pen-to-square text-blue-600 mr-2"></i> แก้ไขรายการจองคิว (${order.id})`;
+            document.getElementById('submit-booking-btn').innerText = 'บันทึกการแก้ไข';
+            document.getElementById('cancel-edit-btn').classList.remove('hidden');
+        }
 
-    localStorage.setItem(
-        "carcare_dark",
-        document.body.classList.contains("dark")
-    );
-}
+        function cancelEditBooking() {
+            document.getElementById('bookingForm').reset();
+            document.getElementById('edit-order-id').value = "";
+            document.getElementById('form-heading').innerHTML = `<i class="fa-solid fa-calendar-plus text-blue-600 mr-2"></i> สร้างรายการจองคิวใหม่`;
+            document.getElementById('submit-booking-btn').innerText = 'ยืนยันการจองคิว';
+            document.getElementById('cancel-edit-btn').classList.add('hidden');
+            calculateTotal();
+        }
 
-function clearAllData(){
+        // Status Badges
+        function getStatusBadge(status) {
+            switch(status) {
+                case 'รอคิว':
+                    return `<span class="bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full text-xs font-semibold inline-flex items-center"><i class="fa-solid fa-clock mr-1"></i> รอคิว</span>`;
+                case 'กำลังให้บริการ':
+                    return `<span class="bg-blue-100 text-blue-800 px-2.5 py-1 rounded-full text-xs font-semibold inline-flex items-center"><i class="fa-solid fa-rotate animate-spin mr-1"></i> กำลังให้บริการ</span>`;
+                case 'ตรวจสอบ':
+                    return `<span class="bg-purple-100 text-purple-800 px-2.5 py-1 rounded-full text-xs font-semibold inline-flex items-center"><i class="fa-solid fa-magnifying-glass mr-1"></i> ตรวจสอบคุณภาพ</span>`;
+                case 'เสร็จสิ้น':
+                    return `<span class="bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full text-xs font-semibold inline-flex items-center"><i class="fa-solid fa-check mr-1"></i> เสร็จสิ้น</span>`;
+                default:
+                    return `<span class="bg-slate-100 text-slate-800 px-2.5 py-1 rounded-full text-xs font-semibold">${status}</span>`;
+            }
+        }
 
-    if(!confirm(
-        "ข้อมูลรถ รายการบำรุง และประวัติทั้งหมดจะถูกลบ ต้องการดำเนินการต่อหรือไม่?"
-    )) return;
+        function changeOrderStatus(orderId, newStatus) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = newStatus;
+                addNotification("อัปเดตสถานะ", `ออร์เดอร์ ${orderId} เปลี่ยนสถานะเป็น "${newStatus}"`);
+                renderAllViews();
+            }
+        }
 
-    cars=[];
-    services=[];
-    history=[];
+        function deleteOrder(orderId) {
+            if (confirm(`คุณต้องการลบออร์เดอร์ ${orderId} หรือไม่?`)) {
+                orders = orders.filter(o => o.id !== orderId);
+                addNotification("ลบรายการ", `ยกเลิกและลบออร์เดอร์ ${orderId} เรียบร้อย`);
+                renderAllViews();
+            }
+        }
 
-    saveData();
+        // Notifications
+        function addNotification(title, desc) {
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + " น.";
+            notifications.unshift({ title, desc, time });
+            updateNotificationBadge();
+        }
 
-    render();
+        function updateNotificationBadge() {
+            const badge = document.getElementById('notif-badge');
+            badge.innerText = notifications.length;
+            
+            const listContainer = document.getElementById('notification-list');
+            listContainer.innerHTML = "";
+            if (notifications.length === 0) {
+                listContainer.innerHTML = `<div class="text-center text-slate-400 text-xs py-8">ไม่มีการแจ้งเตือน</div>`;
+                return;
+            }
+            notifications.forEach(n => {
+                listContainer.innerHTML += `
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1">
+                        <div class="flex justify-between font-bold text-slate-800">
+                            <span>${n.title}</span>
+                            <span class="text-[10px] text-slate-400">${n.time}</span>
+                        </div>
+                        <p class="text-slate-600">${n.desc}</p>
+                    </div>
+                `;
+            });
+        }
 
-    toast("ล้างข้อมูลทั้งหมดแล้ว");
-}
+        function toggleNotificationModal() {
+            const modal = document.getElementById('notification-modal');
+            modal.classList.toggle('hidden');
+        }
 
-/* =========================
-   START
-========================= */
+        function clearNotifications() {
+            notifications = [];
+            updateNotificationBadge();
+        }
 
-if(localStorage.getItem("carcare_dark")==="true"){
-    document.body.classList.add("dark");
-}
+        // Dashboard & Chart.js
+        function renderAdminDashboard() {
+            const pending = orders.filter(o => o.status === "รอคิว").length;
+            const process = orders.filter(o => o.status === "กำลังให้บริการ" || o.status === "ตรวจสอบ").length;
+            const done = orders.filter(o => o.status === "เสร็จสิ้น").length;
+            const totalIncome = orders.filter(o => o.status === "เสร็จสิ้น").reduce((sum, o) => sum + o.price, 0);
 
-render();
+            document.getElementById('stat-pending').innerText = pending;
+            document.getElementById('stat-process').innerText = process;
+            document.getElementById('stat-done').innerText = done;
+            document.getElementById('stat-income').innerText = totalIncome.toLocaleString() + " ฿";
 
-/* ตรวจสอบแจ้งเตือนทุก 30 วินาที */
-setInterval(()=>{
+            // Render Donut Chart
+            const ctx = document.getElementById('statusChart').getContext('2d');
+            if (chartInstance) chartInstance.destroy();
+            chartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['รอคิว', 'กำลังให้บริการ/ตรวจสอบ', 'เสร็จสิ้น'],
+                    datasets: [{
+                        data: [pending, process, done],
+                        backgroundColor: ['#f59e0b', '#3b82f6', '#10b981'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11 } } }
+                    }
+                }
+            });
 
-    checkNotifications();
+            renderAdminTable();
+        }
 
-    updateCountdowns();
+        function renderAdminTable() {
+            const searchKeyword = document.getElementById('admin-search').value.toLowerCase();
+            const tbody = document.getElementById('admin-order-table');
+            tbody.innerHTML = "";
 
-},30000);
+            const filteredOrders = orders.filter(o => 
+                o.name.toLowerCase().includes(searchKeyword) || 
+                o.car.toLowerCase().includes(searchKeyword) || 
+                o.id.toLowerCase().includes(searchKeyword)
+            );
 
-</script>
+            if (filteredOrders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-slate-400 text-xs">ไม่พบข้อมูลออร์เดอร์ในระบบ</td></tr>`;
+                return;
+            }
 
+            filteredOrders.forEach(o => {
+                let addonsText = o.addons.length > 0 ? `<br><span class="text-[10px] text-indigo-600 font-medium">+ เสริม: ${o.addons.join(', ')}</span>` : '';
+                tbody.innerHTML += `
+                    <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition">
+                        <td class="p-3 font-semibold text-xs text-blue-600">${o.id}<br><span class="text-[10px] text-slate-400 font-normal">${o.time}</span></td>
+                        <td class="p-3">
+                            <span class="font-bold text-slate-800">${o.name}</span><br>
+                            <span class="text-xs text-slate-500">${o.car} (${o.phone})</span>
+                        </td>
+                        <td class="p-3 text-slate-700">${o.service} ${addonsText}</td>
+                        <td class="p-3 font-bold text-slate-900">${o.price.toLocaleString()} ฿</td>
+                        <td class="p-3">${getStatusBadge(o.status)}</td>
+                        <td class="p-3 text-center space-x-1">
+                            <select onchange="changeOrderStatus('${o.id}', this.value)" class="text-xs border rounded-lg p-1 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                <option value="" disabled selected>เปลี่ยนสถานะ</option>
+                                <option value="รอคิว">รอคิว</option>
+                                <option value="กำลังให้บริการ">กำลังให้บริการ</option>
+                                <option value="ตรวจสอบ">ตรวจสอบ</option>
+                                <option value="เสร็จสิ้น">เสร็จสิ้น</option>
+                            </select>
+                            <button onclick="editOrder('${o.id}')" class="text-indigo-600 hover:text-indigo-800 p-1 text-xs" title="แก้ไข"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="deleteOrder('${o.id}')" class="text-rose-500 hover:text-rose-700 p-1 text-xs" title="ลบรายการ"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Customer View Table
+        function renderCustomerTable() {
+            const tbody = document.getElementById('customer-order-list');
+            tbody.innerHTML = "";
+
+            if (orders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-8 text-slate-400 text-xs">ยังไม่มีรายการจองคิวในระบบ</td></tr>`;
+                return;
+            }
+
+            orders.forEach(o => {
+                tbody.innerHTML += `
+                    <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition">
+                        <td class="p-3 font-semibold text-blue-600 text-xs">${o.id}<br><span class="text-[10px] text-slate-500 font-normal">${o.car}</span></td>
+                        <td class="p-3 text-slate-700">${o.service}</td>
+                        <td class="p-3 font-bold">${o.price.toLocaleString()} ฿</td>
+                        <td class="p-3">${getStatusBadge(o.status)}</td>
+                        <td class="p-3 text-right text-xs text-slate-400">${o.time}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        function renderAllViews() {
+            renderCustomerTable();
+            renderAdminDashboard();
+            updateNotificationBadge();
+        }
+
+        // Modal Helpers
+        function showCustomModal(title, message, type = "info") {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-message').innerText = message;
+            const iconDiv = document.getElementById('modal-icon');
+            if (type === "success") {
+                iconDiv.className = "w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 text-xl flex items-center justify-center mx-auto";
+                iconDiv.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
+            } else {
+                iconDiv.className = "w-12 h-12 rounded-full bg-blue-100 text-blue-600 text-xl flex items-center justify-center mx-auto";
+                iconDiv.innerHTML = `<i class="fa-solid fa-circle-info"></i>`;
+            }
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeCustomModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        // Initialize App on Load
+        window.onload = function() {
+            calculateTotal();
+            switchRole('admin'); // Start with admin dashboard & 10 sample items visible
+        };
+    </script>
 </body>
 </html>
