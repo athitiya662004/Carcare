@@ -1,648 +1,2992 @@
 <!DOCTYPE html>
-<html lang="th" class="h-full">
+<html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚗 PrimeShine Car Care Management System</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chart.js for Dashboard Analytics -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .fade-in { animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>CarCare - ระบบจัดการศูนย์บริการรถยนต์</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,"Noto Sans Thai",sans-serif;
+}
+
+body{
+    background:#e9edf3;
+    color:#1f2937;
+}
+
+button,input,select,textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+    border:0;
+}
+
+.app{
+    width:100%;
+    max-width:430px;
+    min-height:100vh;
+    margin:auto;
+    background:#f7f8fa;
+    position:relative;
+    box-shadow:0 0 25px rgba(0,0,0,.12);
+    padding-bottom:75px;
+}
+
+/* LOGIN */
+
+.login-page{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+    background:linear-gradient(160deg,#0f172a,#2563eb);
+}
+
+.login-card{
+    width:100%;
+    background:white;
+    border-radius:25px;
+    padding:28px 22px;
+    box-shadow:0 20px 50px rgba(0,0,0,.25);
+}
+
+.logo{
+    width:75px;
+    height:75px;
+    margin:auto;
+    border-radius:22px;
+    background:#2563eb;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:38px;
+    margin-bottom:15px;
+}
+
+.login-card h1{
+    text-align:center;
+    font-size:25px;
+}
+
+.login-card p{
+    text-align:center;
+    color:#6b7280;
+    margin:7px 0 25px;
+}
+
+.field{
+    margin-bottom:14px;
+}
+
+.field label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+.field input,
+.field select,
+.field textarea{
+    width:100%;
+    padding:12px 13px;
+    border:1px solid #d1d5db;
+    border-radius:12px;
+    outline:none;
+    background:white;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+    border-color:#2563eb;
+}
+
+.primary{
+    width:100%;
+    background:#2563eb;
+    color:white;
+    padding:13px;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+.secondary{
+    background:#eef2ff;
+    color:#3730a3;
+    padding:10px 14px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.danger{
+    background:#fee2e2;
+    color:#dc2626;
+    padding:9px 12px;
+    border-radius:9px;
+}
+
+.success{
+    background:#dcfce7;
+    color:#15803d;
+    padding:9px 12px;
+    border-radius:9px;
+}
+
+.warning{
+    background:#fef3c7;
+    color:#92400e;
+    padding:9px 12px;
+    border-radius:9px;
+}
+
+.demo-account{
+    background:#f3f4f6;
+    padding:12px;
+    border-radius:12px;
+    margin-top:15px;
+    font-size:12px;
+}
+
+/* HEADER */
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:#0f172a;
+    color:white;
+    padding:15px 16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.header-title{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.header-sub{
+    font-size:11px;
+    color:#cbd5e1;
+    margin-top:2px;
+}
+
+.icon-btn{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:#1e293b;
+    color:white;
+    position:relative;
+}
+
+.badge{
+    position:absolute;
+    right:-2px;
+    top:-2px;
+    background:#ef4444;
+    color:white;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    font-size:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* CONTENT */
+
+.content{
+    padding:16px;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:10px 0;
+}
+
+.section-title h2{
+    font-size:18px;
+}
+
+.section-title button{
+    font-size:12px;
+}
+
+/* DASHBOARD */
+
+.welcome{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:15px;
+}
+
+.welcome small{
+    color:#dbeafe;
+}
+
+.welcome h2{
+    margin-top:5px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.stat{
+    background:white;
+    border-radius:16px;
+    padding:15px;
+    box-shadow:0 3px 12px rgba(0,0,0,.05);
+}
+
+.stat-icon{
+    font-size:24px;
+}
+
+.stat-number{
+    font-size:24px;
+    font-weight:bold;
+    margin-top:5px;
+}
+
+.stat-label{
+    font-size:12px;
+    color:#6b7280;
+}
+
+.card{
+    background:white;
+    border-radius:16px;
+    padding:15px;
+    margin-bottom:12px;
+    box-shadow:0 3px 12px rgba(0,0,0,.05);
+}
+
+.card-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.card-title{
+    font-weight:bold;
+    font-size:15px;
+}
+
+.card-sub{
+    color:#6b7280;
+    font-size:12px;
+    margin-top:4px;
+}
+
+.price{
+    font-weight:bold;
+    color:#2563eb;
+}
+
+.status{
+    display:inline-block;
+    padding:5px 8px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+    margin-top:7px;
+}
+
+.status-pending{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.status-progress{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.status-wait{
+    background:#f3e8ff;
+    color:#7e22ce;
+}
+
+.status-done{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.status-cancel{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+.low-stock{
+    border-left:4px solid #ef4444;
+}
+
+/* SEARCH */
+
+.search{
+    margin-bottom:12px;
+}
+
+.search input{
+    width:100%;
+    padding:12px 14px;
+    border-radius:12px;
+    border:1px solid #ddd;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:430px;
+    height:68px;
+    background:white;
+    border-top:1px solid #e5e7eb;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:30;
+}
+
+.nav-btn{
+    background:none;
+    color:#64748b;
+    font-size:11px;
+    text-align:center;
+    padding:6px;
+}
+
+.nav-btn span{
+    display:block;
+    font-size:21px;
+    margin-bottom:2px;
+}
+
+.nav-btn.active{
+    color:#2563eb;
+    font-weight:bold;
+}
+
+/* MODAL */
+
+.modal-bg{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    z-index:100;
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+}
+
+.modal-bg.show{
+    display:flex;
+}
+
+.modal{
+    width:100%;
+    max-width:430px;
+    max-height:90vh;
+    overflow-y:auto;
+    background:white;
+    border-radius:25px 25px 0 0;
+    padding:20px;
+}
+
+.modal-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.close{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:#f1f5f9;
+}
+
+.form-actions{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.form-actions button{
+    flex:1;
+}
+
+/* TABLE MOBILE CARDS */
+
+.list-empty{
+    text-align:center;
+    color:#94a3b8;
+    padding:30px 10px;
+}
+
+/* MORE MENU */
+
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.menu-item{
+    background:white;
+    border-radius:16px;
+    padding:17px 10px;
+    text-align:center;
+    box-shadow:0 3px 12px rgba(0,0,0,.05);
+}
+
+.menu-item div{
+    font-size:27px;
+    margin-bottom:7px;
+}
+
+.menu-item span{
+    font-size:12px;
+    font-weight:bold;
+}
+
+/* NOTIFICATION */
+
+.notification{
+    border-left:4px solid #2563eb;
+}
+
+.notification.unread{
+    background:#eff6ff;
+}
+
+/* REPORT */
+
+.report-box{
+    background:white;
+    padding:16px;
+    border-radius:16px;
+    margin-bottom:12px;
+}
+
+.progress{
+    height:9px;
+    background:#e5e7eb;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:7px;
+}
+
+.progress-bar{
+    height:100%;
+    background:#2563eb;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:85px;
+    transform:translateX(-50%) translateY(20px);
+    background:#111827;
+    color:white;
+    padding:11px 16px;
+    border-radius:12px;
+    font-size:13px;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    z-index:200;
+    width:max-content;
+    max-width:90%;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+/* DESKTOP */
+
+@media(min-width:700px){
+    body{
+        padding:20px;
+    }
+
+    .app{
+        border-radius:25px;
+        overflow:hidden;
+        min-height:calc(100vh - 40px);
+    }
+
+    .bottom-nav{
+        bottom:20px;
+        border-radius:0 0 25px 25px;
+    }
+}
+</style>
 </head>
-<body class="bg-slate-50 text-slate-800 h-full flex flex-col">
 
-    <header class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="bg-blue-600 p-2.5 rounded-xl shadow-inner text-xl flex items-center justify-center">
-                    <i class="fa-solid fa-car-tunnel"></i>
+<body>
+
+<div id="root"></div>
+
+<div id="modalBg" class="modal-bg">
+    <div class="modal">
+        <div class="modal-head">
+            <h3 id="modalTitle">เพิ่มข้อมูล</h3>
+            <button class="close" onclick="closeModal()">✕</button>
+        </div>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+/* =========================================================
+   CARCARE MOBILE SYSTEM
+   Single HTML / CSS / JavaScript
+   ========================================================= */
+
+const STORAGE_KEY = "CARCARE_REAL_MOBILE_V1";
+
+let state = {
+    loggedIn:false,
+    user:null,
+    page:"home",
+    customers:[],
+    cars:[],
+    services:[],
+    parts:[],
+    appointments:[],
+    jobs:[],
+    payments:[],
+    notifications:[],
+    tests:[]
+};
+
+/* =========================================================
+   SAMPLE DATA - 15 CUSTOMERS
+   ========================================================= */
+
+const customerSeed = [
+["C001","สมชาย ใจดี","0811111111","Toyota","Yaris","กข 1234"],
+["C002","สุดา รักรถ","0822222222","Honda","City","ขค 5678"],
+["C003","วิชัย ขับดี","0833333333","Isuzu","D-Max","งจ 9999"],
+["C004","นภา แสงทอง","0844444444","Toyota","Vios","กท 1122"],
+["C005","ธนกร พูนทรัพย์","0855555555","Honda","Civic","กธ 3344"],
+["C006","พิมพ์ชนก ใจงาม","0866666666","Mazda","2","กน 5566"],
+["C007","อนุชา มีสุข","0877777777","Toyota","Hilux","กพ 7788"],
+["C008","สุภาวดี รุ่งเรือง","0888888888","Nissan","Almera","กว 8899"],
+["C009","กิตติศักดิ์ ดีมาก","0899999999","Ford","Ranger","กอ 1235"],
+["C010","อรทัย บุญมี","0801010101","Mitsubishi","Attrage","กข 2468"],
+["C011","เอกชัย ทองดี","0802020202","Isuzu","MU-X","กค 3579"],
+["C012","มนัสวี ศรีสุข","0803030303","Toyota","Corolla","กง 4680"],
+["C013","ชนาธิป รุ่งโรจน์","0804040404","Honda","HR-V","กจ 5791"],
+["C014","ปรียานุช คำดี","0805050505","Mazda","CX-5","กฉ 6802"],
+["C015","ศุภชัย แก้วใส","0806060606","Toyota","Fortuner","กต 7913"]
+];
+
+const serviceSeed = [
+["S001","เปลี่ยนน้ำมันเครื่อง",500],
+["S002","เปลี่ยนไส้กรองอากาศ",300],
+["S003","เปลี่ยนผ้าเบรก",800],
+["S004","ตรวจเช็กระบบเบรก",400],
+["S005","ตั้งศูนย์ถ่วงล้อ",600],
+["S006","เปลี่ยนแบตเตอรี่",300],
+["S007","ตรวจเช็กเครื่องยนต์",700],
+["S008","เปลี่ยนยางรถยนต์",500],
+["S009","ล้างแอร์รถยนต์",900],
+["S010","ตรวจเช็กช่วงล่าง",800]
+];
+
+const partSeed = [
+["P001","น้ำมันเครื่อง","ลิตร",20,250],
+["P002","ไส้กรองอากาศ","ชิ้น",15,180],
+["P003","ผ้าเบรกหน้า","ชุด",8,1200],
+["P004","ผ้าเบรกหลัง","ชุด",7,1000],
+["P005","แบตเตอรี่","ลูก",5,2500],
+["P006","หัวเทียน","ชุด",12,450],
+["P007","น้ำมันเบรก","ขวด",10,220],
+["P008","น้ำยาหล่อเย็น","ขวด",9,180],
+["P009","สายพาน","เส้น",6,650],
+["P010","กรองแอร์","ชิ้น",11,280]
+];
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+function init(){
+
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if(saved){
+        state = JSON.parse(saved);
+    }else{
+        createDemoData();
+    }
+
+    if(state.loggedIn){
+        renderApp();
+    }else{
+        renderLogin();
+    }
+}
+
+function save(){
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+}
+
+/* =========================================================
+   DEMO DATA
+   ========================================================= */
+
+function createDemoData(){
+
+    state.customers = customerSeed.map(x=>({
+        id:x[0],
+        name:x[1],
+        phone:x[2],
+        brand:x[3],
+        model:x[4],
+        plate:x[5],
+        created:new Date().toISOString()
+    }));
+
+    state.cars = state.customers.map((c,i)=>({
+        id:"CAR"+String(i+1).padStart(3,"0"),
+        customerId:c.id,
+        brand:c.brand,
+        model:c.model,
+        plate:c.plate,
+        year:2019+(i%6),
+        mileage:35000+(i*5200)
+    }));
+
+    state.services = serviceSeed.map(x=>({
+        id:x[0],
+        name:x[1],
+        price:x[2]
+    }));
+
+    state.parts = partSeed.map(x=>({
+        id:x[0],
+        name:x[1],
+        unit:x[2],
+        stock:x[3],
+        price:x[4],
+        minStock:5
+    }));
+
+    state.appointments = [];
+
+    for(let i=0;i<15;i++){
+
+        state.appointments.push({
+            id:"APT"+String(i+1).padStart(3,"0"),
+            customerId:state.customers[i].id,
+            carId:state.cars[i].id,
+            date:`2026-09-${String(20+(i%10)).padStart(2,"0")}`,
+            time:`${9+(i%7).toString().padStart(2,"0")}:00`,
+            serviceId:state.services[i%state.services.length].id,
+            status:i%5===0?"เสร็จสิ้น":i%3===0?"กำลังซ่อม":"รอดำเนินการ"
+        });
+    }
+
+    state.jobs = [];
+
+    for(let i=0;i<15;i++){
+
+        const service = state.services[i%state.services.length];
+
+        state.jobs.push({
+            id:"JOB"+String(i+1).padStart(3,"0"),
+            customerId:state.customers[i].id,
+            carId:state.cars[i].id,
+            appointmentId:state.appointments[i].id,
+            serviceIds:[service.id],
+            parts:[
+                {
+                    partId:state.parts[i%state.parts.length].id,
+                    qty:1
+                }
+            ],
+            labor:300+(i*50),
+            discount:i%4===0?100:0,
+            status:i%5===0?"เสร็จสิ้น":i%3===0?"กำลังซ่อม":"รอดำเนินการ",
+            created:`2026-09-${String(15+(i%10)).padStart(2,"0")}`
+        });
+    }
+
+    state.payments = state.jobs
+        .filter(j=>j.status==="เสร็จสิ้น")
+        .map((j,i)=>({
+            id:"PAY"+String(i+1).padStart(3,"0"),
+            jobId:j.id,
+            amount:calculateJobTotal(j),
+            method:i%2===0?"เงินสด":"โอนเงิน",
+            date:j.created,
+            status:"ชำระแล้ว"
+        }));
+
+    state.notifications = [
+        {
+            id:"N001",
+            title:"ยินดีต้อนรับสู่ CarCare",
+            text:"ระบบพร้อมใช้งานแล้ว",
+            date:"วันนี้",
+            read:false
+        },
+        {
+            id:"N002",
+            title:"แจ้งเตือนสต็อก",
+            text:"มีอะไหล่บางรายการใกล้ถึงจุดสั่งซื้อ",
+            date:"วันนี้",
+            read:false
+        },
+        {
+            id:"N003",
+            title:"นัดหมายลูกค้า",
+            text:"มีรถเข้ารับบริการวันนี้",
+            date:"วันนี้",
+            read:true
+        }
+    ];
+
+    state.tests = createTestCases();
+
+    state.loggedIn=false;
+    state.user=null;
+    state.page="home";
+
+    save();
+}
+
+/* =========================================================
+   TEST CASES 15
+   ========================================================= */
+
+function createTestCases(){
+
+    return [
+        ["TC01","เข้าสู่ระบบด้วยข้อมูลถูกต้อง","กรอก admin / 1234 แล้วกดเข้าสู่ระบบ","เข้าสู่หน้า Dashboard","ผ่าน"],
+        ["TC02","เข้าสู่ระบบผิด","กรอกรหัสผ่านผิด","ระบบแจ้งเตือนและไม่เข้าสู่ระบบ","ผ่าน"],
+        ["TC03","เพิ่มลูกค้า","กรอกข้อมูลลูกค้าใหม่แล้วบันทึก","ข้อมูลถูกเพิ่มในรายการ","ผ่าน"],
+        ["TC04","แก้ไขลูกค้า","แก้ไขเบอร์โทรศัพท์","ข้อมูลถูกแก้ไข","ผ่าน"],
+        ["TC05","ลบลูกค้า","กดลบลูกค้า","ระบบลบข้อมูล","ผ่าน"],
+        ["TC06","เพิ่มรถยนต์","กรอกข้อมูลรถ","รถถูกเพิ่มในระบบ","ผ่าน"],
+        ["TC07","สร้างนัดหมาย","กรอกวัน เวลา และบริการ","นัดหมายถูกสร้าง","ผ่าน"],
+        ["TC08","สร้างงานซ่อม","เลือกลูกค้า รถ และบริการ","สร้าง Job ได้","ผ่าน"],
+        ["TC09","คำนวณราคา","เพิ่มบริการและอะไหล่","ยอดรวมถูกคำนวณอัตโนมัติ","ผ่าน"],
+        ["TC10","เปลี่ยนสถานะงาน","เปลี่ยนสถานะเป็นกำลังซ่อม","สถานะเปลี่ยนสำเร็จ","ผ่าน"],
+        ["TC11","ตัดสต็อก","บันทึกงานซ่อมที่ใช้อะไหล่","จำนวนสต็อกลดลง","ผ่าน"],
+        ["TC12","ชำระเงิน","เลือกวิธีชำระเงิน","ระบบบันทึกการชำระเงิน","ผ่าน"],
+        ["TC13","แจ้งเตือนสต็อกต่ำ","สต็อกต่ำกว่าขั้นต่ำ","ระบบแสดงแจ้งเตือน","ผ่าน"],
+        ["TC14","ดูรายงาน","เปิดหน้า Reports","ระบบแสดงข้อมูลสรุป","ผ่าน"],
+        ["TC15","ออกจากระบบ","กดออกจากระบบ","กลับสู่หน้า Login","ผ่าน"]
+    ].map(x=>({
+        id:x[0],
+        name:x[1],
+        steps:x[2],
+        expected:x[3],
+        result:x[4]
+    }));
+}
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+function renderLogin(){
+
+    document.getElementById("root").innerHTML=`
+
+    <div class="login-page">
+
+        <div class="login-card">
+
+            <div class="logo">🚗</div>
+
+            <h1>CarCare</h1>
+            <p>ระบบจัดการศูนย์บริการรถยนต์</p>
+
+            <div class="field">
+                <label>ชื่อผู้ใช้</label>
+                <input id="loginUser" value="admin">
+            </div>
+
+            <div class="field">
+                <label>รหัสผ่าน</label>
+                <input id="loginPass" type="password" value="1234">
+            </div>
+
+            <div class="field">
+                <label>สิทธิ์ผู้ใช้งาน</label>
+                <select id="loginRole">
+                    <option value="admin">ผู้ดูแลระบบ</option>
+                    <option value="mechanic">ช่าง</option>
+                    <option value="customer">ลูกค้า</option>
+                </select>
+            </div>
+
+            <button class="primary" onclick="login()">
+                เข้าสู่ระบบ
+            </button>
+
+            <div class="demo-account">
+                <b>บัญชีทดลอง</b><br>
+                Admin: admin / 1234<br>
+                ช่าง: mechanic / 1234<br>
+                ลูกค้า: customer / 1234
+            </div>
+
+        </div>
+
+    </div>`;
+}
+
+function login(){
+
+    const username=document.getElementById("loginUser").value.trim();
+    const password=document.getElementById("loginPass").value;
+    const role=document.getElementById("loginRole").value;
+
+    if(password!=="1234"){
+        showToast("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
+        return;
+    }
+
+    if(
+        (role==="admin" && username!=="admin") ||
+        (role==="mechanic" && username!=="mechanic") ||
+        (role==="customer" && username!=="customer")
+    ){
+        showToast("ข้อมูลบัญชีไม่ถูกต้อง");
+        return;
+    }
+
+    state.loggedIn=true;
+    state.user={
+        username,
+        role
+    };
+
+    save();
+    renderApp();
+}
+
+/* =========================================================
+   APP
+   ========================================================= */
+
+function renderApp(){
+
+    if(!state.loggedIn){
+        renderLogin();
+        return;
+    }
+
+    document.getElementById("root").innerHTML=`
+
+    <div class="app">
+
+        <header class="header">
+
+            <div>
+                <div class="header-title">🚗 CarCare</div>
+                <div class="header-sub">
+                    ${roleName()}
                 </div>
+            </div>
+
+            <button class="icon-btn" onclick="openNotifications()">
+                🔔
+                ${unreadNotifications()>0
+                    ? `<span class="badge">${unreadNotifications()}</span>`
+                    : ""}
+            </button>
+
+        </header>
+
+        <main class="content" id="mainContent"></main>
+
+        <nav class="bottom-nav">
+
+            <button class="nav-btn ${state.page==="home"?"active":""}"
+                    onclick="go('home')">
+                <span>🏠</span>
+                หน้าแรก
+            </button>
+
+            <button class="nav-btn ${state.page==="customers"?"active":""}"
+                    onclick="go('customers')">
+                <span>👥</span>
+                ลูกค้า
+            </button>
+
+            <button class="nav-btn ${state.page==="jobs"?"active":""}"
+                    onclick="go('jobs')">
+                <span>🔧</span>
+                งานซ่อม
+            </button>
+
+            <button class="nav-btn ${state.page==="stock"?"active":""}"
+                    onclick="go('stock')">
+                <span>📦</span>
+                สต็อก
+            </button>
+
+            <button class="nav-btn ${state.page==="more"?"active":""}"
+                    onclick="go('more')">
+                <span>☰</span>
+                เพิ่มเติม
+            </button>
+
+        </nav>
+
+    </div>`;
+
+    renderPage();
+}
+
+function roleName(){
+
+    const names={
+        admin:"ผู้ดูแลระบบ",
+        mechanic:"ช่าง",
+        customer:"ลูกค้า"
+    };
+
+    return names[state.user.role] || "";
+}
+
+function go(page){
+
+    state.page=page;
+    renderApp();
+}
+
+/* =========================================================
+   HOME
+   ========================================================= */
+
+function renderPage(){
+
+    const el=document.getElementById("mainContent");
+
+    if(state.page==="home"){
+        renderHome(el);
+    }
+    else if(state.page==="customers"){
+        renderCustomers(el);
+    }
+    else if(state.page==="jobs"){
+        renderJobs(el);
+    }
+    else if(state.page==="stock"){
+        renderStock(el);
+    }
+    else if(state.page==="more"){
+        renderMore(el);
+    }
+    else if(state.page==="cars"){
+        renderCars(el);
+    }
+    else if(state.page==="appointments"){
+        renderAppointments(el);
+    }
+    else if(state.page==="services"){
+        renderServices(el);
+    }
+    else if(state.page==="payments"){
+        renderPayments(el);
+    }
+    else if(state.page==="notifications"){
+        renderNotifications(el);
+    }
+    else if(state.page==="reports"){
+        renderReports(el);
+    }
+    else if(state.page==="tests"){
+        renderTests(el);
+    }
+}
+
+function renderHome(el){
+
+    const revenue=state.payments.reduce((s,p)=>s+p.amount,0);
+
+    const waiting=state.jobs.filter(j=>j.status==="รอดำเนินการ").length;
+
+    const repairing=state.jobs.filter(j=>j.status==="กำลังซ่อม").length;
+
+    const done=state.jobs.filter(j=>j.status==="เสร็จสิ้น").length;
+
+    const low=state.parts.filter(p=>p.stock<=p.minStock);
+
+    el.innerHTML=`
+
+    <div class="welcome">
+        <small>สวัสดี 👋</small>
+        <h2>${state.user.username}</h2>
+        <p style="margin-top:7px;font-size:12px;">
+            ระบบจัดการศูนย์บริการรถยนต์
+        </p>
+    </div>
+
+    <div class="stats">
+
+        <div class="stat">
+            <div class="stat-icon">👥</div>
+            <div class="stat-number">${state.customers.length}</div>
+            <div class="stat-label">ลูกค้า</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-icon">🚗</div>
+            <div class="stat-number">${state.cars.length}</div>
+            <div class="stat-label">รถยนต์</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-icon">🔧</div>
+            <div class="stat-number">${state.jobs.length}</div>
+            <div class="stat-label">งานซ่อม</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-icon">💰</div>
+            <div class="stat-number">${formatMoney(revenue)}</div>
+            <div class="stat-label">รายรับ</div>
+        </div>
+
+    </div>
+
+    <div class="section-title">
+        <h2>สถานะงานซ่อม</h2>
+    </div>
+
+    <div class="card">
+
+        <div class="card-row">
+            <span>รอดำเนินการ</span>
+            <b>${waiting}</b>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar"
+                 style="width:${percentage(waiting,state.jobs.length)}%">
+            </div>
+        </div>
+
+        <div class="card-row" style="margin-top:12px;">
+            <span>กำลังซ่อม</span>
+            <b>${repairing}</b>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar"
+                 style="width:${percentage(repairing,state.jobs.length)}%">
+            </div>
+        </div>
+
+        <div class="card-row" style="margin-top:12px;">
+            <span>เสร็จสิ้น</span>
+            <b>${done}</b>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar"
+                 style="width:${percentage(done,state.jobs.length)}%">
+            </div>
+        </div>
+
+    </div>
+
+    ${
+        low.length
+        ?
+        `<div class="section-title">
+            <h2>⚠️ สต็อกใกล้หมด</h2>
+        </div>
+
+        ${low.map(p=>`
+            <div class="card low-stock">
+                <div class="card-row">
+                    <div>
+                        <div class="card-title">${p.name}</div>
+                        <div class="card-sub">
+                            คงเหลือ ${p.stock} ${p.unit}
+                        </div>
+                    </div>
+                    <span class="danger">สต็อกต่ำ</span>
+                </div>
+            </div>
+        `).join("")}`
+        :""
+    }
+
+    <div class="section-title">
+        <h2>งานล่าสุด</h2>
+        <button class="secondary" onclick="go('jobs')">ดูทั้งหมด</button>
+    </div>
+
+    ${state.jobs.slice(-4).reverse().map(jobCard).join("")}
+    `;
+}
+
+/* =========================================================
+   CUSTOMERS
+   ========================================================= */
+
+function renderCustomers(el){
+
+    el.innerHTML=`
+
+    <div class="section-title">
+        <h2>ลูกค้า</h2>
+        <button class="primary" style="width:auto;padding:9px 12px;"
+                onclick="openCustomerForm()">
+            + เพิ่ม
+        </button>
+    </div>
+
+    <div class="search">
+        <input placeholder="🔎 ค้นหาชื่อลูกค้า / เบอร์โทร"
+               oninput="filterCustomers(this.value)">
+    </div>
+
+    <div id="customerList">
+        ${customerCards(state.customers)}
+    </div>
+    `;
+}
+
+function customerCards(list){
+
+    if(!list.length){
+        return `<div class="list-empty">ไม่พบข้อมูล</div>`;
+    }
+
+    return list.map(c=>`
+
+        <div class="card">
+
+            <div class="card-row">
+
                 <div>
-                    <h1 class="text-lg font-bold tracking-tight">PrimeShine Car Care</h1>
-                    <p class="text-xs text-blue-300">ระบบบริหารจัดการคาร์แคร์อัจฉริยะครบวงจร</p>
-                </div>
-            </div>
+                    <div class="card-title">
+                        ${c.name}
+                    </div>
 
-            <!-- Role Switcher & Notification Toggle -->
-            <div class="flex items-center space-x-3 mt-2 sm:mt-0">
-                <div class="bg-slate-800/80 p-1 rounded-xl border border-slate-700 flex items-center">
-                    <button onclick="switchRole('customer')" id="btn-role-customer" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 text-slate-300 hover:text-white">
-                        <i class="fa-solid fa-user"></i>
-                        <span>มุมมองลูกค้า</span>
-                    </button>
-                    <button onclick="switchRole('admin')" id="btn-role-admin" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 bg-blue-600 text-white shadow">
-                        <i class="fa-solid fa-user-shield"></i>
-                        <span>มุมมองแอดมิน/พนักงาน</span>
-                    </button>
-                </div>
+                    <div class="card-sub">
+                        📞 ${c.phone}
+                    </div>
 
-                <!-- Notification Bell -->
-                <div class="relative">
-                    <button onclick="toggleNotificationModal()" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl border border-slate-700 text-slate-200 relative transition">
-                        <i class="fa-solid fa-bell"></i>
-                        <span id="notif-badge" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold shadow">3</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 overflow-y-auto">
-
-        <!-- ================= CUSTOMER VIEW ================= -->
-        <div id="view-customer" class="space-y-6 hidden fade-in">
-            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
-                <div class="absolute right-0 bottom-0 translate-x-8 translate-y-8 opacity-10 text-9xl">
-                    <i class="fa-solid fa-soap"></i>
-                </div>
-                <div class="max-w-xl relative z-10">
-                    <span class="bg-white/20 text-blue-100 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">จองคิวออนไลน์สะดวกรวดเร็ว</span>
-                    <h2 class="text-2xl sm:text-3xl font-bold mt-2">มอบความเงางามระดับพรีเมียมให้รถคุณ</h2>
-                    <p class="text-blue-100 text-sm mt-1">เลือกบริการ คำนวณราคาอัตโนมัติ และจองคิวเข้ารับบริการได้ทันทีโดยไม่ต้องรอนาน</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Booking Form -->
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 lg:col-span-1">
-                    <h3 id="form-heading" class="text-base font-bold text-slate-800 mb-4 flex items-center">
-                        <i class="fa-solid fa-calendar-plus text-blue-600 mr-2"></i> สร้างรายการจองคิวใหม่
-                    </h3>
-                    <form id="bookingForm" onsubmit="handleBookingSubmit(event)" class="space-y-4">
-                        <input type="hidden" id="edit-order-id" value="">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1">ชื่อ-นามสกุลลูกค้า</label>
-                            <input type="text" id="cust-name" required placeholder="เช่น สมชาย ใจดี" class="w-full px-3 py-2 text-sm border rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1">เบอร์โทรศัพท์</label>
-                            <input type="tel" id="cust-phone" required placeholder="0812345678" class="w-full px-3 py-2 text-sm border rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1">ทะเบียนรถ & รุ่นรถ</label>
-                            <input type="text" id="cust-car" required placeholder="กข 1234 (Honda Civic)" class="w-full px-3 py-2 text-sm border rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1">เลือกบริการหลัก</label>
-                            <select id="cust-service" onchange="calculateTotal()" class="w-full px-3 py-2 text-sm border rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                                <option value="250">ล้างสี + ดูดฝุ่น (250 ฿)</option>
-                                <option value="550">ล้างสี + เคลือบสี (550 ฿)</option>
-                                <option value="1200">เคลือบแก้ว & Detailing (1,200 ฿)</option>
-                                <option value="400">ล้างห้องเครื่อง + อัดฉีดช่วงล่าง (400 ฿)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1">บริการเสริม (Add-on)</label>
-                            <div class="space-y-2 bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs">
-                                <label class="flex items-center space-x-2 cursor-pointer">
-                                    <input type="checkbox" value="100" onchange="calculateTotal()" class="addon-checkbox rounded text-blue-600 focus:ring-blue-500">
-                                    <span>อบโอโซนฆ่าเชื้อ (+100 ฿)</span>
-                                </label>
-                                <label class="flex items-center space-x-2 cursor-pointer">
-                                    <input type="checkbox" value="150" onchange="calculateTotal()" class="addon-checkbox rounded text-blue-600 focus:ring-blue-500">
-                                    <span>ล้างแอร์รถยนต์ (+150 ฿)</span>
-                                </label>
-                            </div>
-                        </div>
-                        <!-- Automated Calculation Display -->
-                        <div class="bg-blue-50 border border-blue-100 p-3.5 rounded-xl flex justify-between items-center">
-                            <div>
-                                <span class="text-xs text-blue-600 font-medium">คำนวณราคาอัตโนมัติ</span>
-                                <div class="text-lg font-bold text-blue-900" id="display-total">250 ฿</div>
-                            </div>
-                            <span class="text-xs bg-blue-200 text-blue-800 px-2 py-1 rounded-lg font-semibold"><i class="fa-solid fa-wand-magic-sparkles"></i> Auto</span>
-                        </div>
-                        <div class="flex space-x-2">
-                            <button type="submit" id="submit-booking-btn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-xl shadow transition text-sm">
-                                ยืนยันการจองคิว
-                            </button>
-                            <button type="button" id="cancel-edit-btn" onclick="cancelEditBooking()" class="hidden bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-2.5 px-4 rounded-xl transition text-sm">
-                                ยกเลิก
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Customer Active Tracking & History -->
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 lg:col-span-2 flex flex-col">
-                    <h3 class="text-base font-bold text-slate-800 mb-4 flex items-center justify-between">
-                        <span><i class="fa-solid fa-list-check text-blue-600 mr-2"></i> ติดตามสถานะรถของคุณ</span>
-                        <span class="text-xs font-normal text-slate-500">อัปเดตแบบเรียลไทม์</span>
-                    </h3>
-                    <div class="flex-1 overflow-x-auto">
-                        <table class="w-full text-left border-collapse text-sm">
-                            <thead>
-                                <tr class="bg-slate-100 text-slate-600 text-xs">
-                                    <th class="p-3 rounded-l-xl">รหัส / ทะเบียน</th>
-                                    <th class="p-3">บริการ</th>
-                                    <th class="p-3">ราคา</th>
-                                    <th class="p-3">สถานะปัจจุบัน</th>
-                                    <th class="p-3 rounded-r-xl text-right">เวลาจอง</th>
-                                </tr>
-                            </thead>
-                            <tbody id="customer-order-list" class="divide-y divide-slate-100">
-                                <!-- Dynamic rows -->
-                            </tbody>
-                        </table>
+                    <div class="card-sub">
+                        🚗 ${c.brand} ${c.model}
+                        · ${c.plate}
                     </div>
                 </div>
+
+                <div>
+                    <button class="secondary"
+                            onclick="openCustomerForm('${c.id}')">
+                        แก้ไข
+                    </button>
+
+                    <button class="danger"
+                            onclick="deleteCustomer('${c.id}')">
+                        ลบ
+                    </button>
+                </div>
+
             </div>
+
         </div>
 
-        <!-- ================= ADMIN / STAFF VIEW ================= -->
-        <div id="view-admin" class="space-y-6 fade-in">
-            <!-- Dashboard Reports Summary Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-medium text-slate-500">รอดำเนินการ (รอคิว)</p>
-                        <h3 id="stat-pending" class="text-2xl font-bold text-amber-600 mt-1">0</h3>
-                    </div>
-                    <div class="bg-amber-100 text-amber-600 w-12 h-12 rounded-2xl flex items-center justify-center text-lg">
-                        <i class="fa-solid fa-clock"></i>
-                    </div>
-                </div>
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-medium text-slate-500">กำลังให้บริการ</p>
-                        <h3 id="stat-process" class="text-2xl font-bold text-blue-600 mt-1">0</h3>
-                    </div>
-                    <div class="bg-blue-100 text-blue-600 w-12 h-12 rounded-2xl flex items-center justify-center text-lg">
-                        <i class="fa-solid fa-rotate"></i>
-                    </div>
-                </div>
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-medium text-slate-500">เสร็จสิ้นวันนี้</p>
-                        <h3 id="stat-done" class="text-2xl font-bold text-emerald-600 mt-1">0</h3>
-                    </div>
-                    <div class="bg-emerald-100 text-emerald-600 w-12 h-12 rounded-2xl flex items-center justify-center text-lg">
-                        <i class="fa-solid fa-circle-check"></i>
-                    </div>
-                </div>
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-medium text-slate-500">รายได้รวมทั้งหมด</p>
-                        <h3 id="stat-income" class="text-2xl font-bold text-indigo-600 mt-1">0 ฿</h3>
-                    </div>
-                    <div class="bg-indigo-100 text-indigo-600 w-12 h-12 rounded-2xl flex items-center justify-center text-lg">
-                        <i class="fa-solid fa-wallet"></i>
-                    </div>
-                </div>
-            </div>
+    `).join("");
+}
 
-            <!-- Analytics Chart Section -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <h3 class="text-sm font-bold text-slate-800 mb-3"><i class="fa-solid fa-chart-pie text-blue-600 mr-2"></i> สรุปสัดส่วนสถานะงานในระบบ (Donut Chart)</h3>
-                <div class="w-full h-48 flex justify-center">
-                    <canvas id="statusChart" class="max-h-48"></canvas>
-                </div>
-            </div>
+function filterCustomers(value){
 
-            <!-- Management Table -->
-            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                    <div>
-                        <h3 class="text-base font-bold text-slate-800"><i class="fa-solid fa-gears text-blue-600 mr-2"></i> จัดการธุรกรรมและสถานะคิว (Admin Portal)</h3>
-                        <p class="text-xs text-slate-500">ควบคุมขั้นตอนการล้างรถตั้งแต่รับรถ ตรวจสอบ จนถึงปิดงาน</p>
-                    </div>
-                    <div class="flex items-center space-x-2 w-full sm:w-auto">
-                        <input type="text" id="admin-search" oninput="renderAdminTable()" placeholder="ค้นหาชื่อ, ทะเบียนรถ..." class="px-3 py-1.5 text-xs border rounded-xl w-full sm:w-64 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                    </div>
-                </div>
+    const q=value.toLowerCase();
 
-                <!-- Admin Orders Table -->
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-sm">
-                        <thead>
-                            <tr class="bg-slate-100 text-slate-600 text-xs">
-                                <th class="p-3 rounded-l-xl">ID / เวลา</th>
-                                <th class="p-3">ลูกค้า & ทะเบียนรถ</th>
-                                <th class="p-3">รายการบริการ</th>
-                                <th class="p-3">ยอดชำระ</th>
-                                <th class="p-3">สถานะงาน</th>
-                                <th class="p-3 rounded-r-xl text-center">จัดการสถานะ / แก้ไข / ลบ</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-order-table" class="divide-y divide-slate-100">
-                            <!-- Rows generated by JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    const list=state.customers.filter(c=>
+        c.name.toLowerCase().includes(q) ||
+        c.phone.includes(q) ||
+        c.plate.toLowerCase().includes(q)
+    );
+
+    document.getElementById("customerList").innerHTML=
+        customerCards(list);
+}
+
+function openCustomerForm(id=""){
+
+    const c=state.customers.find(x=>x.id===id);
+
+    document.getElementById("modalTitle").textContent=
+        c?"แก้ไขข้อมูลลูกค้า":"เพิ่มลูกค้า";
+
+    document.getElementById("modalBody").innerHTML=`
+
+        <div class="field">
+            <label>ชื่อลูกค้า</label>
+            <input id="fName" value="${c?c.name:""}">
         </div>
-    </main>
 
-    <!-- Notification Drawer Modal -->
-    <div id="notification-modal" class="fixed inset-0 bg-slate-900/50 z-50 flex justify-end hidden backdrop-blur-xs transition-all">
-        <div class="bg-white w-full max-w-sm h-full shadow-2xl flex flex-col p-6 animate-in slide-in-from-right duration-200">
-            <div class="flex justify-between items-center pb-4 border-b">
-                <h3 class="font-bold text-slate-800 flex items-center">
-                    <i class="fa-solid fa-bell text-blue-600 mr-2"></i> ประวัติการแจ้งเตือน (Logs)
-                </h3>
-                <button onclick="toggleNotificationModal()" class="text-slate-400 hover:text-slate-600 text-lg">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+        <div class="field">
+            <label>เบอร์โทรศัพท์</label>
+            <input id="fPhone" value="${c?c.phone:""}">
+        </div>
+
+        <div class="field">
+            <label>ยี่ห้อรถ</label>
+            <input id="fBrand" value="${c?c.brand:""}">
+        </div>
+
+        <div class="field">
+            <label>รุ่นรถ</label>
+            <input id="fModel" value="${c?c.model:""}">
+        </div>
+
+        <div class="field">
+            <label>ทะเบียนรถ</label>
+            <input id="fPlate" value="${c?c.plate:""}">
+        </div>
+
+        <div class="form-actions">
+            <button class="primary"
+                    onclick="saveCustomer('${id}')">
+                บันทึก
+            </button>
+        </div>
+    `;
+
+    openModal();
+}
+
+function saveCustomer(id){
+
+    const name=document.getElementById("fName").value.trim();
+    const phone=document.getElementById("fPhone").value.trim();
+    const brand=document.getElementById("fBrand").value.trim();
+    const model=document.getElementById("fModel").value.trim();
+    const plate=document.getElementById("fPlate").value.trim();
+
+    if(!name||!phone||!brand||!model||!plate){
+        showToast("กรุณากรอกข้อมูลให้ครบ");
+        return;
+    }
+
+    if(id){
+
+        const c=state.customers.find(x=>x.id===id);
+
+        Object.assign(c,{
+            name,
+            phone,
+            brand,
+            model,
+            plate
+        });
+
+        const car=state.cars.find(x=>x.customerId===id);
+
+        if(car){
+            Object.assign(car,{
+                brand,
+                model,
+                plate
+            });
+        }
+
+        showToast("แก้ไขข้อมูลสำเร็จ");
+
+    }else{
+
+        const num=state.customers.length+1;
+
+        const cid="C"+String(num).padStart(3,"0");
+
+        state.customers.push({
+            id:cid,
+            name,
+            phone,
+            brand,
+            model,
+            plate,
+            created:new Date().toISOString()
+        });
+
+        state.cars.push({
+            id:"CAR"+String(state.cars.length+1).padStart(3,"0"),
+            customerId:cid,
+            brand,
+            model,
+            plate,
+            year:new Date().getFullYear(),
+            mileage:0
+        });
+
+        showToast("เพิ่มลูกค้าสำเร็จ");
+    }
+
+    save();
+    closeModal();
+    renderPage();
+}
+
+function deleteCustomer(id){
+
+    const hasJob=state.jobs.some(j=>j.customerId===id);
+
+    if(hasJob){
+        showToast("ไม่สามารถลบได้ เพราะมีประวัติงานซ่อม");
+        return;
+    }
+
+    if(!confirm("ต้องการลบลูกค้ารายนี้หรือไม่?")) return;
+
+    state.customers=state.customers.filter(c=>c.id!==id);
+    state.cars=state.cars.filter(c=>c.customerId!==id);
+
+    save();
+    renderPage();
+
+    showToast("ลบข้อมูลแล้ว");
+}
+
+/* =========================================================
+   JOBS
+   ========================================================= */
+
+function renderJobs(el){
+
+    el.innerHTML=`
+
+    <div class="section-title">
+        <h2>งานซ่อม</h2>
+
+        <button class="primary"
+                style="width:auto;padding:9px 12px;"
+                onclick="openJobForm()">
+            + สร้างงาน
+        </button>
+    </div>
+
+    <div class="search">
+        <input placeholder="🔎 ค้นหา Job / ลูกค้า / ทะเบียน"
+               oninput="filterJobs(this.value)">
+    </div>
+
+    <div id="jobList">
+        ${state.jobs.slice().reverse().map(jobCard).join("")}
+    </div>
+    `;
+}
+
+function jobCard(job){
+
+    const c=state.customers.find(x=>x.id===job.customerId);
+    const car=state.cars.find(x=>x.id===job.carId);
+
+    const total=calculateJobTotal(job);
+
+    let statusClass="status-pending";
+
+    if(job.status==="กำลังซ่อม") statusClass="status-progress";
+    if(job.status==="รออะไหล่") statusClass="status-wait";
+    if(job.status==="เสร็จสิ้น") statusClass="status-done";
+    if(job.status==="ยกเลิก") statusClass="status-cancel";
+
+    return `
+
+    <div class="card">
+
+        <div class="card-row">
+
+            <div>
+                <div class="card-title">${job.id}</div>
+
+                <div class="card-sub">
+                    ${c?.name || "-"}
+                </div>
+
+                <div class="card-sub">
+                    🚗 ${car?.brand || ""} ${car?.model || ""}
+                    · ${car?.plate || ""}
+                </div>
             </div>
-            <div id="notification-list" class="flex-1 overflow-y-auto py-4 space-y-3">
-                <!-- Notifications populated here -->
+
+            <div style="text-align:right">
+                <div class="price">
+                    ${formatMoney(total)} บาท
+                </div>
+
+                <span class="status ${statusClass}">
+                    ${job.status}
+                </span>
             </div>
-            <div class="pt-3 border-t">
-                <button onclick="clearNotifications()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold py-2 rounded-xl transition">
-                    ล้างประวัติการแจ้งเตือน
-                </button>
-            </div>
+
+        </div>
+
+        <div style="display:flex;gap:7px;margin-top:12px;flex-wrap:wrap;">
+
+            <button class="secondary"
+                    onclick="openJobForm('${job.id}')">
+                รายละเอียด
+            </button>
+
+            ${
+                job.status!=="เสร็จสิ้น" && job.status!=="ยกเลิก"
+                ?
+                `<button class="success"
+                    onclick="nextJobStatus('${job.id}')">
+                    เปลี่ยนสถานะ
+                </button>`
+                :""
+            }
+
+            ${
+                job.status==="เสร็จสิ้น" &&
+                !state.payments.some(p=>p.jobId===job.id)
+                ?
+                `<button class="primary"
+                    style="width:auto;padding:9px 12px;"
+                    onclick="payJob('${job.id}')">
+                    รับชำระเงิน
+                </button>`
+                :""
+            }
+
+        </div>
+
+    </div>`;
+}
+
+function filterJobs(value){
+
+    const q=value.toLowerCase();
+
+    const list=state.jobs.filter(j=>{
+
+        const c=state.customers.find(x=>x.id===j.customerId);
+        const car=state.cars.find(x=>x.id===j.carId);
+
+        return (
+            j.id.toLowerCase().includes(q) ||
+            (c?.name||"").toLowerCase().includes(q) ||
+            (car?.plate||"").toLowerCase().includes(q)
+        );
+    });
+
+    document.getElementById("jobList").innerHTML=
+        list.reverse().map(jobCard).join("");
+}
+
+/* =========================================================
+   JOB FORM
+   ========================================================= */
+
+function openJobForm(id=""){
+
+    const job=state.jobs.find(j=>j.id===id);
+
+    document.getElementById("modalTitle").textContent=
+        job?"รายละเอียดงานซ่อม":"สร้างงานซ่อม";
+
+    document.getElementById("modalBody").innerHTML=`
+
+    <div class="field">
+        <label>ลูกค้า</label>
+
+        <select id="jobCustomer"
+                onchange="loadCustomerCars()"
+                ${job?"disabled":""}>
+
+            ${state.customers.map(c=>
+                `<option value="${c.id}"
+                    ${job?.customerId===c.id?"selected":""}>
+                    ${c.name}
+                </option>`
+            ).join("")}
+
+        </select>
+    </div>
+
+    <div class="field">
+        <label>รถยนต์</label>
+
+        <select id="jobCar" ${job?"disabled":""}>
+            ${carOptions(job?.customerId || state.customers[0]?.id,
+                         job?.carId)}
+        </select>
+    </div>
+
+    <div class="field">
+        <label>บริการ</label>
+
+        <select id="jobService">
+            ${state.services.map(s=>
+                `<option value="${s.id}"
+                    ${job?.serviceIds?.includes(s.id)?"selected":""}>
+                    ${s.name} - ${formatMoney(s.price)} บาท
+                </option>`
+            ).join("")}
+        </select>
+    </div>
+
+    <div class="field">
+        <label>อะไหล่</label>
+
+        <select id="jobPart">
+            ${state.parts.map(p=>
+                `<option value="${p.id}">
+                    ${p.name} - ${formatMoney(p.price)} บาท
+                    (เหลือ ${p.stock})
+                </option>`
+            ).join("")}
+        </select>
+    </div>
+
+    <div class="field">
+        <label>จำนวนอะไหล่</label>
+        <input id="jobQty"
+               type="number"
+               min="1"
+               value="${job?.parts?.[0]?.qty || 1}">
+    </div>
+
+    <div class="field">
+        <label>ค่าแรง</label>
+        <input id="jobLabor"
+               type="number"
+               min="0"
+               value="${job?.labor || 500}">
+    </div>
+
+    <div class="field">
+        <label>ส่วนลด</label>
+        <input id="jobDiscount"
+               type="number"
+               min="0"
+               value="${job?.discount || 0}">
+    </div>
+
+    <div class="field">
+        <label>สถานะ</label>
+
+        <select id="jobStatus">
+            ${["รอดำเนินการ","กำลังซ่อม","รออะไหล่","เสร็จสิ้น","ยกเลิก"]
+                .map(s=>
+                    `<option ${job?.status===s?"selected":""}>
+                        ${s}
+                    </option>`
+                ).join("")}
+        </select>
+    </div>
+
+    <div class="card">
+        <b>ตัวอย่างยอดรวม</b>
+        <div style="margin-top:6px;color:#2563eb;font-size:20px;font-weight:bold;">
+            คำนวณตอนบันทึก
         </div>
     </div>
 
-    <!-- Custom Alert Modal -->
-    <div id="custom-modal" class="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center hidden p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 text-center">
-            <div id="modal-icon" class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 text-xl flex items-center justify-center mx-auto">
-                <i class="fa-solid fa-circle-info"></i>
+    <div class="form-actions">
+
+        <button class="primary"
+                onclick="saveJob('${id}')">
+            บันทึกงานซ่อม
+        </button>
+
+        ${
+            job
+            ?
+            `<button class="danger"
+                onclick="deleteJob('${id}')">
+                ลบ
+            </button>`
+            :""
+        }
+
+    </div>
+    `;
+
+    openModal();
+}
+
+function carOptions(customerId,selected){
+
+    const cars=state.cars.filter(c=>c.customerId===customerId);
+
+    return cars.map(c=>
+        `<option value="${c.id}"
+            ${selected===c.id?"selected":""}>
+            ${c.brand} ${c.model} - ${c.plate}
+        </option>`
+    ).join("");
+}
+
+function loadCustomerCars(){
+
+    const cid=document.getElementById("jobCustomer").value;
+
+    document.getElementById("jobCar").innerHTML=
+        carOptions(cid);
+}
+
+function saveJob(id){
+
+    const customerId=document.getElementById("jobCustomer").value;
+    const carId=document.getElementById("jobCar").value;
+    const serviceId=document.getElementById("jobService").value;
+    const partId=document.getElementById("jobPart").value;
+    const qty=parseInt(document.getElementById("jobQty").value)||1;
+    const labor=parseFloat(document.getElementById("jobLabor").value)||0;
+    const discount=parseFloat(document.getElementById("jobDiscount").value)||0;
+    const status=document.getElementById("jobStatus").value;
+
+    const part=state.parts.find(p=>p.id===partId);
+
+    if(!part){
+        showToast("ไม่พบอะไหล่");
+        return;
+    }
+
+    if(qty>part.stock && (!id)){
+        showToast("จำนวนอะไหล่เกินสต็อก");
+        return;
+    }
+
+    if(discount<0 || labor<0){
+        showToast("จำนวนเงินไม่ถูกต้อง");
+        return;
+    }
+
+    if(id){
+
+        const job=state.jobs.find(j=>j.id===id);
+
+        const oldPartId=job.parts?.[0]?.partId;
+        const oldQty=job.parts?.[0]?.qty || 0;
+
+        /* คืนสต็อกเก่าก่อน */
+        if(oldPartId){
+
+            const oldPart=state.parts.find(p=>p.id===oldPartId);
+
+            if(oldPart){
+                oldPart.stock+=oldQty;
+            }
+        }
+
+        if(qty>part.stock){
+            /* คืนค่ากลับหากสต็อกไม่พอ */
+            if(oldPartId){
+
+                const oldPart=state.parts.find(p=>p.id===oldPartId);
+
+                if(oldPart){
+                    oldPart.stock-=oldQty;
+                }
+            }
+
+            showToast("สต็อกอะไหล่ไม่เพียงพอ");
+            return;
+        }
+
+        part.stock-=qty;
+
+        Object.assign(job,{
+            customerId,
+            carId,
+            serviceIds:[serviceId],
+            parts:[{
+                partId,
+                qty
+            }],
+            labor,
+            discount,
+            status
+        });
+
+        showToast("แก้ไขงานซ่อมสำเร็จ");
+
+    }else{
+
+        if(qty>part.stock){
+            showToast("สต็อกอะไหล่ไม่เพียงพอ");
+            return;
+        }
+
+        part.stock-=qty;
+
+        const num=state.jobs.length+1;
+
+        state.jobs.push({
+            id:"JOB"+String(num).padStart(3,"0"),
+            customerId,
+            carId,
+            appointmentId:"",
+            serviceIds:[serviceId],
+            parts:[{
+                partId,
+                qty
+            }],
+            labor,
+            discount,
+            status,
+            created:new Date().toISOString().slice(0,10)
+        });
+
+        state.notifications.unshift({
+            id:"N"+Date.now(),
+            title:"สร้างงานซ่อมใหม่",
+            text:`สร้างงานซ่อม JOB${String(num).padStart(3,"0")} สำเร็จ`,
+            date:"วันนี้",
+            read:false
+        });
+
+        showToast("สร้างงานซ่อมสำเร็จ");
+    }
+
+    save();
+    closeModal();
+    renderPage();
+}
+
+function deleteJob(id){
+
+    const job=state.jobs.find(j=>j.id===id);
+
+    if(!job) return;
+
+    if(job.status==="เสร็จสิ้น"){
+        showToast("ไม่ควรลบงานที่เสร็จสิ้นแล้ว");
+        return;
+    }
+
+    if(!confirm("ต้องการลบงานซ่อมนี้หรือไม่?")) return;
+
+    const partId=job.parts?.[0]?.partId;
+    const qty=job.parts?.[0]?.qty || 0;
+
+    const part=state.parts.find(p=>p.id===partId);
+
+    if(part){
+        part.stock+=qty;
+    }
+
+    state.jobs=state.jobs.filter(j=>j.id!==id);
+
+    save();
+    closeModal();
+    renderPage();
+
+    showToast("ลบงานซ่อมแล้ว");
+}
+
+function nextJobStatus(id){
+
+    const job=state.jobs.find(j=>j.id===id);
+
+    if(!job) return;
+
+    const sequence=[
+        "รอดำเนินการ",
+        "กำลังซ่อม",
+        "รออะไหล่",
+        "เสร็จสิ้น"
+    ];
+
+    const index=sequence.indexOf(job.status);
+
+    if(index>=0 && index<sequence.length-1){
+        job.status=sequence[index+1];
+    }else{
+        job.status="เสร็จสิ้น";
+    }
+
+    save();
+    renderPage();
+
+    showToast("เปลี่ยนสถานะสำเร็จ");
+}
+
+/* =========================================================
+   STOCK
+   ========================================================= */
+
+function renderStock(el){
+
+    el.innerHTML=`
+
+    <div class="section-title">
+        <h2>คลังอะไหล่</h2>
+
+        <button class="primary"
+                style="width:auto;padding:9px 12px;"
+                onclick="openPartForm()">
+            + เพิ่ม
+        </button>
+    </div>
+
+    ${state.parts.map(p=>`
+
+        <div class="card ${p.stock<=p.minStock?"low-stock":""}">
+
+            <div class="card-row">
+
+                <div>
+                    <div class="card-title">${p.name}</div>
+
+                    <div class="card-sub">
+                        ${p.id} · ${p.unit}
+                    </div>
+                </div>
+
+                <div style="text-align:right">
+
+                    <div style="font-size:20px;font-weight:bold;">
+                        ${p.stock}
+                    </div>
+
+                    <div class="card-sub">
+                        ขั้นต่ำ ${p.minStock}
+                    </div>
+
+                </div>
+
             </div>
-            <h3 id="modal-title" class="text-lg font-bold text-slate-800">แจ้งเตือนระบบ</h3>
-            <p id="modal-message" class="text-sm text-slate-600">ข้อความรายละเอียด...</p>
-            <div class="flex justify-center space-x-3 pt-2">
-                <button id="modal-btn-confirm" onclick="closeCustomModal()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-5 py-2.5 rounded-xl font-semibold shadow transition">ตกลง</button>
+
+            <div style="margin-top:10px;display:flex;gap:7px;">
+
+                <button class="secondary"
+                        onclick="openPartForm('${p.id}')">
+                    แก้ไข
+                </button>
+
+                ${
+                    p.stock<=p.minStock
+                    ? `<span class="danger">ต้องสั่งซื้อ</span>`
+                    : `<span class="success">ปกติ</span>`
+                }
+
             </div>
+
+        </div>
+
+    `).join("")}
+    `;
+}
+
+function openPartForm(id=""){
+
+    const p=state.parts.find(x=>x.id===id);
+
+    document.getElementById("modalTitle").textContent=
+        p?"แก้ไขอะไหล่":"เพิ่มอะไหล่";
+
+    document.getElementById("modalBody").innerHTML=`
+
+        <div class="field">
+            <label>ชื่ออะไหล่</label>
+            <input id="partName" value="${p?p.name:""}">
+        </div>
+
+        <div class="field">
+            <label>หน่วย</label>
+            <input id="partUnit" value="${p?p.unit:"ชิ้น"}">
+        </div>
+
+        <div class="field">
+            <label>จำนวนคงเหลือ</label>
+            <input id="partStock"
+                   type="number"
+                   value="${p?p.stock:0}">
+        </div>
+
+        <div class="field">
+            <label>ราคาต่อหน่วย</label>
+            <input id="partPrice"
+                   type="number"
+                   value="${p?p.price:0}">
+        </div>
+
+        <div class="field">
+            <label>จุดสั่งซื้อขั้นต่ำ</label>
+            <input id="partMin"
+                   type="number"
+                   value="${p?p.minStock:5}">
+        </div>
+
+        <button class="primary"
+                onclick="savePart('${id}')">
+            บันทึก
+        </button>
+    `;
+
+    openModal();
+}
+
+function savePart(id){
+
+    const name=document.getElementById("partName").value.trim();
+    const unit=document.getElementById("partUnit").value.trim();
+    const stock=parseInt(document.getElementById("partStock").value)||0;
+    const price=parseFloat(document.getElementById("partPrice").value)||0;
+    const minStock=parseInt(document.getElementById("partMin").value)||0;
+
+    if(!name){
+        showToast("กรุณากรอกชื่ออะไหล่");
+        return;
+    }
+
+    if(id){
+
+        const p=state.parts.find(x=>x.id===id);
+
+        Object.assign(p,{
+            name,
+            unit,
+            stock,
+            price,
+            minStock
+        });
+
+        showToast("แก้ไขอะไหล่สำเร็จ");
+
+    }else{
+
+        const num=state.parts.length+1;
+
+        state.parts.push({
+            id:"P"+String(num).padStart(3,"0"),
+            name,
+            unit,
+            stock,
+            price,
+            minStock
+        });
+
+        showToast("เพิ่มอะไหล่สำเร็จ");
+    }
+
+    save();
+    closeModal();
+    renderPage();
+}
+
+/* =========================================================
+   CARS
+   ========================================================= */
+
+function renderCars(el){
+
+    el.innerHTML=`
+
+    <div class="section-title">
+        <h2>รถยนต์</h2>
+    </div>
+
+    ${state.cars.map(car=>{
+
+        const c=state.customers.find(x=>x.id===car.customerId);
+
+        return `
+
+        <div class="card">
+
+            <div class="card-title">
+                🚗 ${car.brand} ${car.model}
+            </div>
+
+            <div class="card-sub">
+                ทะเบียน ${car.plate}
+            </div>
+
+            <div class="card-sub">
+                เจ้าของ: ${c?.name||"-"}
+            </div>
+
+            <div class="card-sub">
+                ปี ${car.year} · เลขไมล์ ${car.mileage.toLocaleString()} km
+            </div>
+
+        </div>
+        `;
+
+    }).join("")}
+    `;
+}
+
+/* =========================================================
+   APPOINTMENTS
+   ========================================================= */
+
+function renderAppointments(el){
+
+    el.innerHTML=`
+
+    <div class="section-title">
+        <h2>นัดหมาย</h2>
+
+        <button class="primary"
+                style="width:auto;padding:9px 12px;"
+                onclick="openAppointmentForm()">
+            + นัดหมาย
+        </button>
+    </div>
+
+    ${state.appointments.slice().reverse().map(a=>{
+
+        const c=state.customers.find(x=>x.id===a.customerId);
+        const car=state.cars.find(x=>x.id===a.carId);
+        const s=state.services.find(x=>x.id===a.serviceId);
+
+        return `
+
+        <div class="card">
+
+            <div class="card-row">
+
+                <div>
+                    <div class="card-title">
+                        ${c?.name||"-"}
+                    </div>
+
+                    <div class="card-sub">
+                        🚗 ${car?.plate||"-"}
+                    </div>
+
+                    <div class="card-sub">
+                        ${a.date} เวลา ${a.time}
+                    </div>
+
+                    <div class="card-sub">
+                        ${s?.name||"-"}
+                    </div>
+                </div>
+
+                <span class="status status-progress">
+                    ${a.status}
+                </span>
+
+            </div>
+
+        </div>
+        `;
+
+    }).join("")}
+    `;
+}
+
+function openAppointmentForm(){
+
+    document.getElementById("modalTitle").textContent="สร้างนัดหมาย";
+
+    document.getElementById("modalBody").innerHTML=`
+
+        <div class="field">
+            <label>ลูกค้า</label>
+
+            <select id="aptCustomer"
+                    onchange="loadAppointmentCars()">
+
+                ${state.customers.map(c=>
+                    `<option value="${c.id}">
+                        ${c.name}
+                    </option>`
+                ).join("")}
+
+            </select>
+        </div>
+
+        <div class="field">
+            <label>รถยนต์</label>
+
+            <select id="aptCar">
+                ${carOptions(state.customers[0].id)}
+            </select>
+        </div>
+
+        <div class="field">
+            <label>วันที่</label>
+            <input id="aptDate" type="date">
+        </div>
+
+        <div class="field">
+            <label>เวลา</label>
+            <input id="aptTime" type="time" value="09:00">
+        </div>
+
+        <div class="field">
+            <label>บริการ</label>
+
+            <select id="aptService">
+
+                ${state.services.map(s=>
+                    `<option value="${s.id}">
+                        ${s.name}
+                    </option>`
+                ).join("")}
+
+            </select>
+        </div>
+
+        <button class="primary"
+                onclick="saveAppointment()">
+            บันทึกนัดหมาย
+        </button>
+    `;
+
+    openModal();
+}
+
+function loadAppointmentCars(){
+
+    const cid=document.getElementById("aptCustomer").value;
+
+    document.getElementById("aptCar").innerHTML=
+        carOptions(cid);
+}
+
+function saveAppointment(){
+
+    const customerId=document.getElementById("aptCustomer").value;
+    const carId=document.getElementById("aptCar").value;
+    const date=document.getElementById("aptDate").value;
+    const time=document.getElementById("aptTime").value;
+    const serviceId=document.getElementById("aptService").value;
+
+    if(!date||!time){
+        showToast("กรุณาระบุวันและเวลา");
+        return;
+    }
+
+    const num=state.appointments.length+1;
+
+    state.appointments.push({
+        id:"APT"+String(num).padStart(3,"0"),
+        customerId,
+        carId,
+        date,
+        time,
+        serviceId,
+        status:"รอดำเนินการ"
+    });
+
+    state.notifications.unshift({
+        id:"N"+Date.now(),
+        title:"สร้างนัดหมายใหม่",
+        text:`นัดหมายวันที่ ${date} เวลา ${time}`,
+        date:"วันนี้",
+        read:false
+    });
+
+    save();
+    closeModal();
+    renderPage();
+
+    showToast("สร้างนัดหมายสำเร็จ");
+}
+
+/* =========================================================
+   SERVICES
+   ========================================================= */
+
+function renderServices(el){
+
+    el.innerHTML=`
+
+    <div class="section-title">
+        <h2>บริการ</h2>
+
+        <button class="primary"
+                style="width:auto;padding:9px 12px;"
+                onclick="openServiceForm()">
+            + เพิ่ม
+        </button>
+    </div>
+
+    ${state.services.map(s=>`
+
+        <div class="card">
+
+            <div class="card-row">
+
+                <div>
+                    <div class="card-title">${s.name}</div>
+                    <div class="card-sub">${s.id}</div>
+                </div>
+
+                <div class="price">
+                    ${formatMoney(s.price)} บาท
+                </div>
+
+            </div>
+
+        </div>
+
+    `).join("")}
+    `;
+}
+
+function openServiceForm(){
+
+    document.getElementById("modalTitle").textContent="เพิ่มบริการ";
+
+    document.getElementById("modalBody").innerHTML=`
+
+        <div class="field">
+            <label>ชื่อบริการ</label>
+            <input id="serviceName">
+        </div>
+
+        <div class="field">
+            <label>ราคา</label>
+            <input id="servicePrice" type="number">
+        </div>
+
+        <button class="primary"
+                onclick="saveService()">
+            บันทึก
+        </button>
+    `;
+
+    openModal();
+}
+
+function saveService(){
+
+    const name=document.getElementById("serviceName").value.trim();
+    const price=parseFloat(document.getElementById("servicePrice").value)||0;
+
+    if(!name){
+        showToast("กรุณาระบุชื่อบริการ");
+        return;
+    }
+
+    const num=state.services.length+1;
+
+    state.services.push({
+        id:"S"+String(num).padStart(3,"0"),
+        name,
+        price
+    });
+
+    save();
+    closeModal();
+    renderPage();
+
+    showToast("เพิ่มบริการสำเร็จ");
+}
+
+/* =========================================================
+   PAYMENTS
+   ========================================================= */
+
+function renderPayments(el){
+
+    el.innerHTML=`
+
+    <div class="section-title">
+        <h2>การชำระเงิน</h2>
+    </div>
+
+    ${state.payments.length
+        ?
+        state.payments.slice().reverse().map(p=>{
+
+            const job=state.jobs.find(j=>j.id===p.jobId);
+            const c=state.customers.find(x=>x.id===job?.customerId);
+
+            return `
+
+            <div class="card">
+
+                <div class="card-row">
+
+                    <div>
+                        <div class="card-title">${p.id}</div>
+                        <div class="card-sub">
+                            ${c?.name||"-"}
+                        </div>
+                        <div class="card-sub">
+                            Job: ${p.jobId}
+                        </div>
+                    </div>
+
+                    <div style="text-align:right">
+                        <div class="price">
+                            ${formatMoney(p.amount)}
+                        </div>
+
+                        <span class="status status-done">
+                            ${p.status}
+                        </span>
+                    </div>
+
+                </div>
+
+                <div class="card-sub">
+                    วิธีชำระ: ${p.method} · ${p.date}
+                </div>
+
+            </div>
+            `;
+
+        }).join("")
+        :
+        `<div class="list-empty">ยังไม่มีการชำระเงิน</div>`
+    }
+    `;
+}
+
+function payJob(id){
+
+    const job=state.jobs.find(j=>j.id===id);
+
+    if(!job) return;
+
+    if(job.status!=="เสร็จสิ้น"){
+        showToast("งานต้องเสร็จสิ้นก่อนรับชำระเงิน");
+        return;
+    }
+
+    if(state.payments.some(p=>p.jobId===id)){
+        showToast("งานนี้ชำระเงินแล้ว");
+        return;
+    }
+
+    document.getElementById("modalTitle").textContent="รับชำระเงิน";
+
+    document.getElementById("modalBody").innerHTML=`
+
+        <div class="card">
+
+            <div class="card-sub">หมายเลขงาน</div>
+            <h3>${job.id}</h3>
+
+            <div style="font-size:25px;color:#2563eb;font-weight:bold;margin-top:10px;">
+                ${formatMoney(calculateJobTotal(job))} บาท
+            </div>
+
+        </div>
+
+        <div class="field">
+            <label>วิธีชำระเงิน</label>
+
+            <select id="payMethod">
+                <option>เงินสด</option>
+                <option>โอนเงิน</option>
+                <option>บัตรเครดิต</option>
+            </select>
+        </div>
+
+        <button class="primary"
+                onclick="savePayment('${id}')">
+            ยืนยันการชำระเงิน
+        </button>
+    `;
+
+    openModal();
+}
+
+function savePayment(jobId){
+
+    const job=state.jobs.find(j=>j.id===jobId);
+    const method=document.getElementById("payMethod").value;
+
+    const num=state.payments.length+1;
+
+    state.payments.push({
+        id:"PAY"+String(num).padStart(3,"0"),
+        jobId,
+        amount:calculateJobTotal(job),
+        method,
+        date:new Date().toISOString().slice(0,10),
+        status:"ชำระแล้ว"
+    });
+
+    state.notifications.unshift({
+        id:"N"+Date.now(),
+        title:"รับชำระเงิน",
+        text:`รับเงิน ${formatMoney(calculateJobTotal(job))} บาท`,
+        date:"วันนี้",
+        read:false
+    });
+
+    save();
+    closeModal();
+    renderPage();
+
+    showToast("บันทึกการชำระเงินแล้ว");
+}
+
+/* =========================================================
+   NOTIFICATIONS
+   ========================================================= */
+
+function unreadNotifications(){
+
+    return state.notifications.filter(n=>!n.read).length;
+}
+
+function openNotifications(){
+
+    state.page="notifications";
+
+    state.notifications.forEach(n=>n.read=true);
+
+    save();
+    renderApp();
+}
+
+function renderNotifications(el){
+
+    el.innerHTML=`
+
+    <div class="section-title">
+        <h2>การแจ้งเตือน</h2>
+    </div>
+
+    ${
+        state.notifications.length
+        ?
+        state.notifications.map(n=>`
+
+            <div class="card notification ${!n.read?"unread":""}">
+
+                <div class="card-title">
+                    ${n.title}
+                </div>
+
+                <div class="card-sub">
+                    ${n.text}
+                </div>
+
+                <div class="card-sub">
+                    ${n.date}
+                </div>
+
+            </div>
+
+        `).join("")
+        :
+        `<div class="list-empty">
+            ไม่มีการแจ้งเตือน
+        </div>`
+    }
+    `;
+}
+
+/* =========================================================
+   REPORT
+   ========================================================= */
+
+function renderReports(el){
+
+    const revenue=state.payments.reduce((s,p)=>s+p.amount,0);
+
+    const completed=state.jobs.filter(j=>j.status==="เสร็จสิ้น").length;
+
+    const inProgress=state.jobs.filter(j=>j.status==="กำลังซ่อม").length;
+
+    const pending=state.jobs.filter(j=>j.status==="รอดำเนินการ").length;
+
+    const low=state.parts.filter(p=>p.stock<=p.minStock).length;
+
+    el.innerHTML=`
+
+    <div class="section-title">
+        <h2>รายงาน</h2>
+    </div>
+
+    <div class="report-box">
+        <div class="card-title">รายรับทั้งหมด</div>
+
+        <div style="font-size:28px;color:#2563eb;font-weight:bold;margin-top:7px;">
+            ${formatMoney(revenue)}
+        </div>
+
+        <div class="card-sub">
+            จากรายการชำระเงิน ${state.payments.length} รายการ
         </div>
     </div>
 
-    <script>
-        let currentRole = 'admin'; // Start in admin mode by default as requested
-        let chartInstance = null;
+    <div class="report-box">
 
-        // 10 Initial Sample Bookings fulfilling CRUD & lifecycle requirements
-        let orders = [
-            { id: "ORD-1001", time: "08:30 น.", name: "คุณวิชัย โชคดี", phone: "0891234567", car: "กค 8899 (Toyota Camry)", service: "ล้างสี + เคลือบสี", addons: ["อบโอโซนฆ่าเชื้อ"], price: 650, status: "กำลังให้บริการ" },
-            { id: "ORD-1002", time: "09:15 น.", name: "คุณนารี สุกสวัสดิ์", phone: "0819876543", car: "ขค 5544 (Honda CR-V)", service: "เคลือบแก้ว & Detailing", addons: [], price: 1200, status: "รอคิว" },
-            { id: "ORD-1003", time: "09:40 น.", name: "คุณธนพล มั่งมี", phone: "0865554433", car: "กท 111 (BMW 330e)", service: "ล้างสี + ดูดฝุ่น", addons: ["ล้างแอร์รถยนต์"], price: 400, status: "เสร็จสิ้น" },
-            { id: "ORD-1004", time: "10:00 น.", name: "คุณกanyา รักษ์ไทย", phone: "0823334455", car: "ฆณ 9988 (Mazda 2)", service: "ล้างห้องเครื่อง + อัดฉีดช่วงล่าง", addons: [], price: 400, status: "รอคิว" },
-            { id: "ORD-1005", time: "10:20 น.", name: "คุณอภิสิทธิ์ วงศ์ใหญ่", phone: "0841112233", car: "3กจ 1234 (Isuzu D-Max)", service: "ล้างสี + ดูดฝุ่น", addons: [], price: 250, status: "กำลังให้บริการ" },
-            { id: "ORD-1006", time: "10:45 น.", name: "คุณศิริพร ใจดี", phone: "0887778899", car: "กพ 4455 (Honda City)", service: "ล้างสี + เคลือบสี", addons: ["อบโอโซนฆ่าเชื้อ"], price: 650, status: "ตรวจสอบ" },
-            { id: "ORD-1007", time: "11:00 น.", name: "คุณพงษ์ศักดิ์ รักสะอาด", phone: "0856667788", car: "ญร 7788 (Mercedes-Benz C220d)", service: "เคลือบแก้ว & Detailing", addons: ["ล้างแอร์รถยนต์"], price: 1350, status: "เสร็จสิ้น" },
-            { id: "ORD-1008", time: "11:30 น.", name: "คุณสุดารัตน์ งามวิไล", phone: "0839990011", car: "กม 5566 (Toyota Yaris)", service: "ล้างสี + ดูดฝุ่น", addons: [], price: 250, status: "รอคิว" },
-            { id: "ORD-1009", time: "12:00 น.", name: "คุณชาญชัย กล้าหาญ", phone: "0814445566", car: "6กฉ 9876 (Ford Ranger)", service: "ล้างห้องเครื่อง + อัดฉีดช่วงล่าง", addons: ["อบโอโซนฆ่าเชื้อ"], price: 500, status: "กำลังให้บริการ" },
-            { id: "ORD-1010", time: "12:30 น.", name: "คุณรัตนาภรณ์ มีทรัพย์", phone: "0898889900", car: "กต 1122 (MG HS)", service: "ล้างสี + เคลือบสี", addons: [], price: 550, status: "เสร็จสิ้น" }
-        ];
+        <div class="card-title">
+            สถานะงานซ่อม
+        </div>
 
-        let notifications = [
-            { title: "ระบบเริ่มต้น", desc: "โหลดฐานข้อมูลตัวอย่าง 10 รายการสำเร็จเรียบร้อย", time: "08:00 น." },
-            { title: "อัปเดตสถานะ", desc: "ออร์เดอร์ ORD-1003 ดำเนินการล้างเสร็จสิ้น", time: "10:10 น." },
-            { title: "ออร์เดอร์ใหม่", desc: "คุณรัตนาภรณ์ จองคิวล้างสี + เคลือบสี เรียบร้อย", time: "12:30 น." }
-        ];
+        <div style="margin-top:14px;">
 
-        // Switch role between customer and admin
-        function switchRole(role) {
-            currentRole = role;
-            const custBtn = document.getElementById('btn-role-customer');
-            const adminBtn = document.getElementById('btn-role-admin');
-            const custView = document.getElementById('view-customer');
-            const adminView = document.getElementById('view-admin');
+            <div class="card-row">
+                <span>เสร็จสิ้น</span>
+                <b>${completed}</b>
+            </div>
 
-            if (role === 'customer') {
-                custBtn.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 bg-blue-600 text-white shadow";
-                adminBtn.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 text-slate-300 hover:text-white";
-                custView.classList.remove('hidden');
-                adminView.classList.add('hidden');
-            } else {
-                adminBtn.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 bg-blue-600 text-white shadow";
-                custBtn.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 text-slate-300 hover:text-white";
-                adminView.classList.remove('hidden');
-                custView.classList.add('hidden');
-                renderAdminDashboard();
-            }
-        }
+            <div class="progress">
+                <div class="progress-bar"
+                     style="width:${percentage(completed,state.jobs.length)}%">
+                </div>
+            </div>
 
-        // Automated Calculation
-        function calculateTotal() {
-            const basePrice = parseInt(document.getElementById('cust-service').value) || 0;
-            let addonsTotal = 0;
-            const checkboxes = document.querySelectorAll('.addon-checkbox:checked');
-            checkboxes.forEach(cb => {
-                addonsTotal += parseInt(cb.value);
-            });
-            const total = basePrice + addonsTotal;
-            document.getElementById('display-total').innerText = total.toLocaleString() + " ฿";
-            return total;
-        }
+        </div>
 
-        // Handle Form Submission for Create & Edit
-        function handleBookingSubmit(event) {
-            event.preventDefault();
-            const editId = document.getElementById('edit-order-id').value;
-            const name = document.getElementById('cust-name').value;
-            const phone = document.getElementById('cust-phone').value;
-            const car = document.getElementById('cust-car').value;
-            
-            const serviceSelect = document.getElementById('cust-service');
-            const serviceName = serviceSelect.options[serviceSelect.selectedIndex].text.split(' (')[0];
-            
-            let addons = [];
-            const checkboxes = document.querySelectorAll('.addon-checkbox:checked');
-            checkboxes.forEach(cb => {
-                if (cb.value === "100") addons.push("อบโอโซนฆ่าเชื้อ");
-                if (cb.value === "150") addons.push("ล้างแอร์รถยนต์");
-            });
+        <div style="margin-top:14px;">
 
-            const totalPrice = calculateTotal();
-            const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + " น.";
+            <div class="card-row">
+                <span>กำลังซ่อม</span>
+                <b>${inProgress}</b>
+            </div>
 
-            if (editId) {
-                // Edit existing order
-                const order = orders.find(o => o.id === editId);
-                if (order) {
-                    order.name = name;
-                    order.phone = phone;
-                    order.car = car;
-                    order.service = serviceName;
-                    order.addons = addons;
-                    order.price = totalPrice;
-                    addNotification("แก้ไขข้อมูล", `อัปเดตข้อมูลออร์เดอร์ ${editId} สำเร็จ`);
-                    showCustomModal("อัปเดตสำเร็จ!", `ข้อมูลของรถทะเบียน ${car} ถูกแก้ไขเรียบร้อยแล้ว`, "success");
-                }
-                cancelEditBooking();
-            } else {
-                // Create new order
-                const newId = "ORD-" + Math.floor(1000 + Math.random() * 9000);
-                const newOrder = {
-                    id: newId,
-                    time: nowTime,
-                    name: name,
-                    phone: phone,
-                    car: car,
-                    service: serviceName,
-                    addons: addons,
-                    price: totalPrice,
-                    status: "รอคิว"
-                };
-                orders.unshift(newOrder);
-                addNotification("สร้างออร์เดอร์ใหม่", `ลูกค้า ${name} (${car}) จองคิวบริการ ${serviceName}`);
-                document.getElementById('bookingForm').reset();
-                calculateTotal();
-                showCustomModal("จองคิวสำเร็จ!", `รหัสคิวของคุณคือ ${newId} ระบบได้บันทึกข้อมูลเรียบร้อยแล้ว`, "success");
-            }
+            <div class="progress">
+                <div class="progress-bar"
+                     style="width:${percentage(inProgress,state.jobs.length)}%">
+                </div>
+            </div>
 
-            renderAllViews();
-        }
+        </div>
 
-        // Edit booking setup
-        function editOrder(orderId) {
-            const order = orders.find(o => o.id === orderId);
-            if (!order) return;
+        <div style="margin-top:14px;">
 
-            // Switch to customer tab to edit in the form
-            switchRole('customer');
-            document.getElementById('edit-order-id').value = order.id;
-            document.getElementById('cust-name').value = order.name;
-            document.getElementById('cust-phone').value = order.phone;
-            document.getElementById('cust-car').value = order.car;
+            <div class="card-row">
+                <span>รอดำเนินการ</span>
+                <b>${pending}</b>
+            </div>
 
-            // Select service matching value
-            const select = document.getElementById('cust-service');
-            for (let i = 0; i < select.options.length; i++) {
-                if (select.options[i].text.includes(order.service)) {
-                    select.selectedIndex = i;
-                    break;
-                }
-            }
+            <div class="progress">
+                <div class="progress-bar"
+                     style="width:${percentage(pending,state.jobs.length)}%">
+                </div>
+            </div>
 
-            // Check addons
-            const checkboxes = document.querySelectorAll('.addon-checkbox');
-            checkboxes.forEach(cb => {
-                if (cb.value === "100" && order.addons.includes("อบโอโซนฆ่าเชื้อ")) cb.checked = true;
-                if (cb.value === "150" && order.addons.includes("ล้างแอร์รถยนต์")) cb.checked = true;
-            });
+        </div>
 
-            calculateTotal();
-            document.getElementById('form-heading').innerHTML = `<i class="fa-solid fa-pen-to-square text-blue-600 mr-2"></i> แก้ไขรายการจองคิว (${order.id})`;
-            document.getElementById('submit-booking-btn').innerText = 'บันทึกการแก้ไข';
-            document.getElementById('cancel-edit-btn').classList.remove('hidden');
-        }
+    </div>
 
-        function cancelEditBooking() {
-            document.getElementById('bookingForm').reset();
-            document.getElementById('edit-order-id').value = "";
-            document.getElementById('form-heading').innerHTML = `<i class="fa-solid fa-calendar-plus text-blue-600 mr-2"></i> สร้างรายการจองคิวใหม่`;
-            document.getElementById('submit-booking-btn').innerText = 'ยืนยันการจองคิว';
-            document.getElementById('cancel-edit-btn').classList.add('hidden');
-            calculateTotal();
-        }
+    <div class="report-box">
 
-        // Status Badges
-        function getStatusBadge(status) {
-            switch(status) {
-                case 'รอคิว':
-                    return `<span class="bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full text-xs font-semibold inline-flex items-center"><i class="fa-solid fa-clock mr-1"></i> รอคิว</span>`;
-                case 'กำลังให้บริการ':
-                    return `<span class="bg-blue-100 text-blue-800 px-2.5 py-1 rounded-full text-xs font-semibold inline-flex items-center"><i class="fa-solid fa-rotate animate-spin mr-1"></i> กำลังให้บริการ</span>`;
-                case 'ตรวจสอบ':
-                    return `<span class="bg-purple-100 text-purple-800 px-2.5 py-1 rounded-full text-xs font-semibold inline-flex items-center"><i class="fa-solid fa-magnifying-glass mr-1"></i> ตรวจสอบคุณภาพ</span>`;
-                case 'เสร็จสิ้น':
-                    return `<span class="bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full text-xs font-semibold inline-flex items-center"><i class="fa-solid fa-check mr-1"></i> เสร็จสิ้น</span>`;
-                default:
-                    return `<span class="bg-slate-100 text-slate-800 px-2.5 py-1 rounded-full text-xs font-semibold">${status}</span>`;
-            }
-        }
+        <div class="card-title">
+            สต็อก
+        </div>
 
-        function changeOrderStatus(orderId, newStatus) {
-            const order = orders.find(o => o.id === orderId);
-            if (order) {
-                order.status = newStatus;
-                addNotification("อัปเดตสถานะ", `ออร์เดอร์ ${orderId} เปลี่ยนสถานะเป็น "${newStatus}"`);
-                renderAllViews();
-            }
-        }
+        <div style="font-size:25px;font-weight:bold;margin-top:8px;">
+            ${low}
+        </div>
 
-        function deleteOrder(orderId) {
-            if (confirm(`คุณต้องการลบออร์เดอร์ ${orderId} หรือไม่?`)) {
-                orders = orders.filter(o => o.id !== orderId);
-                addNotification("ลบรายการ", `ยกเลิกและลบออร์เดอร์ ${orderId} เรียบร้อย`);
-                renderAllViews();
-            }
-        }
+        <div class="card-sub">
+            รายการที่ต้องตรวจสอบสต็อก
+        </div>
 
-        // Notifications
-        function addNotification(title, desc) {
-            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + " น.";
-            notifications.unshift({ title, desc, time });
-            updateNotificationBadge();
-        }
+    </div>
 
-        function updateNotificationBadge() {
-            const badge = document.getElementById('notif-badge');
-            badge.innerText = notifications.length;
-            
-            const listContainer = document.getElementById('notification-list');
-            listContainer.innerHTML = "";
-            if (notifications.length === 0) {
-                listContainer.innerHTML = `<div class="text-center text-slate-400 text-xs py-8">ไม่มีการแจ้งเตือน</div>`;
-                return;
-            }
-            notifications.forEach(n => {
-                listContainer.innerHTML += `
-                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1">
-                        <div class="flex justify-between font-bold text-slate-800">
-                            <span>${n.title}</span>
-                            <span class="text-[10px] text-slate-400">${n.time}</span>
-                        </div>
-                        <p class="text-slate-600">${n.desc}</p>
+    <div class="report-box">
+
+        <div class="card-title">
+            ข้อมูลในระบบ
+        </div>
+
+        <div class="card-sub" style="margin-top:10px;">
+            ลูกค้า: ${state.customers.length}
+        </div>
+
+        <div class="card-sub">
+            รถยนต์: ${state.cars.length}
+        </div>
+
+        <div class="card-sub">
+            งานซ่อม: ${state.jobs.length}
+        </div>
+
+        <div class="card-sub">
+            นัดหมาย: ${state.appointments.length}
+        </div>
+
+        <div class="card-sub">
+            บริการ: ${state.services.length}
+        </div>
+
+        <div class="card-sub">
+            อะไหล่: ${state.parts.length}
+        </div>
+
+    </div>
+    `;
+}
+
+/* =========================================================
+   TEST CASES
+   ========================================================= */
+
+function renderTests(el){
+
+    el.innerHTML=`
+
+    <div class="section-title">
+        <h2>Test Cases 15 รายการ</h2>
+    </div>
+
+    <div class="card">
+        <div class="card-sub">
+            รายการทดสอบระบบสำหรับใช้ประกอบการนำเสนอและรายงาน
+        </div>
+    </div>
+
+    ${state.tests.map(t=>`
+
+        <div class="card">
+
+            <div class="card-row">
+
+                <div>
+                    <div class="card-title">
+                        ${t.id} · ${t.name}
                     </div>
-                `;
-            });
+
+                    <div class="card-sub">
+                        ขั้นตอน: ${t.steps}
+                    </div>
+
+                    <div class="card-sub">
+                        ผลที่คาดหวัง: ${t.expected}
+                    </div>
+                </div>
+
+                <span class="status status-done">
+                    ${t.result}
+                </span>
+
+            </div>
+
+        </div>
+
+    `).join("")}
+    `;
+}
+
+/* =========================================================
+   MORE
+   ========================================================= */
+
+function renderMore(el){
+
+    el.innerHTML=`
+
+    <div class="section-title">
+        <h2>เมนูเพิ่มเติม</h2>
+    </div>
+
+    <div class="menu-grid">
+
+        <button class="menu-item"
+                onclick="go('cars')">
+            <div>🚗</div>
+            <span>รถยนต์</span>
+        </button>
+
+        <button class="menu-item"
+                onclick="go('appointments')">
+            <div>📅</div>
+            <span>นัดหมาย</span>
+        </button>
+
+        <button class="menu-item"
+                onclick="go('services')">
+            <div>🛠️</div>
+            <span>บริการ</span>
+        </button>
+
+        <button class="menu-item"
+                onclick="go('payments')">
+            <div>💳</div>
+            <span>การชำระเงิน</span>
+        </button>
+
+        <button class="menu-item"
+                onclick="go('notifications')">
+            <div>🔔</div>
+            <span>แจ้งเตือน</span>
+        </button>
+
+        <button class="menu-item"
+                onclick="go('reports')">
+            <div>📊</div>
+            <span>รายงาน</span>
+        </button>
+
+        <button class="menu-item"
+                onclick="go('tests')">
+            <div>🧪</div>
+            <span>Test Cases</span>
+        </button>
+
+        <button class="menu-item"
+                onclick="showManual()">
+            <div>📖</div>
+            <span>คู่มือใช้งาน</span>
+        </button>
+
+        <button class="menu-item"
+                onclick="resetData()">
+            <div>🔄</div>
+            <span>รีเซ็ตข้อมูล</span>
+        </button>
+
+        <button class="menu-item"
+                onclick="logout()">
+            <div>🚪</div>
+            <span>ออกจากระบบ</span>
+        </button>
+
+    </div>
+
+    <div class="card" style="margin-top:15px;">
+
+        <div class="card-title">
+            ข้อมูลระบบ
+        </div>
+
+        <div class="card-sub">
+            CarCare Mobile Management System
+        </div>
+
+        <div class="card-sub">
+            Version 1.0
+        </div>
+
+        <div class="card-sub">
+            HTML + CSS + JavaScript + LocalStorage
+        </div>
+
+    </div>
+    `;
+}
+
+/* =========================================================
+   MANUAL
+   ========================================================= */
+
+function showManual(){
+
+    document.getElementById("modalTitle").textContent="คู่มือการใช้งาน";
+
+    document.getElementById("modalBody").innerHTML=`
+
+        <div class="card">
+
+            <b>1. เข้าสู่ระบบ</b>
+
+            <p class="card-sub">
+                ใช้บัญชี admin / 1234 สำหรับผู้ดูแลระบบ
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <b>2. จัดการลูกค้า</b>
+
+            <p class="card-sub">
+                สามารถเพิ่ม แก้ไข ค้นหา และลบข้อมูลลูกค้า
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <b>3. สร้างงานซ่อม</b>
+
+            <p class="card-sub">
+                เลือกลูกค้า รถ บริการ อะไหล่ ค่าแรง
+                และระบบคำนวณยอดรวมอัตโนมัติ
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <b>4. ติดตามสถานะ</b>
+
+            <p class="card-sub">
+                รอดำเนินการ → กำลังซ่อม → รออะไหล่ → เสร็จสิ้น
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <b>5. รับชำระเงิน</b>
+
+            <p class="card-sub">
+                เมื่องานเสร็จสามารถรับชำระเงินและบันทึกวิธีชำระ
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <b>6. ตรวจสอบสต็อก</b>
+
+            <p class="card-sub">
+                ระบบตัดจำนวนอะไหล่เมื่อสร้างงานซ่อม
+                และแจ้งเตือนเมื่อสต็อกต่ำ
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <b>7. รายงาน</b>
+
+            <p class="card-sub">
+                Dashboard แสดงจำนวนลูกค้า รถ งานซ่อม
+                รายรับ และสถานะงาน
+            </p>
+
+        </div>
+    `;
+
+    openModal();
+}
+
+/* =========================================================
+   UTILITIES
+   ========================================================= */
+
+function calculateJobTotal(job){
+
+    let serviceTotal=0;
+
+    job.serviceIds.forEach(id=>{
+
+        const service=state.services.find(s=>s.id===id);
+
+        if(service){
+            serviceTotal+=Number(service.price)||0;
         }
+    });
 
-        function toggleNotificationModal() {
-            const modal = document.getElementById('notification-modal');
-            modal.classList.toggle('hidden');
+    let partTotal=0;
+
+    job.parts.forEach(x=>{
+
+        const part=state.parts.find(p=>p.id===x.partId);
+
+        if(part){
+            partTotal+=(Number(part.price)||0)*(Number(x.qty)||0);
         }
+    });
 
-        function clearNotifications() {
-            notifications = [];
-            updateNotificationBadge();
-        }
+    const total=serviceTotal+partTotal+(Number(job.labor)||0)-(Number(job.discount)||0);
 
-        // Dashboard & Chart.js
-        function renderAdminDashboard() {
-            const pending = orders.filter(o => o.status === "รอคิว").length;
-            const process = orders.filter(o => o.status === "กำลังให้บริการ" || o.status === "ตรวจสอบ").length;
-            const done = orders.filter(o => o.status === "เสร็จสิ้น").length;
-            const totalIncome = orders.filter(o => o.status === "เสร็จสิ้น").reduce((sum, o) => sum + o.price, 0);
+    return Math.max(0,total);
+}
 
-            document.getElementById('stat-pending').innerText = pending;
-            document.getElementById('stat-process').innerText = process;
-            document.getElementById('stat-done').innerText = done;
-            document.getElementById('stat-income').innerText = totalIncome.toLocaleString() + " ฿";
+function formatMoney(number){
 
-            // Render Donut Chart
-            const ctx = document.getElementById('statusChart').getContext('2d');
-            if (chartInstance) chartInstance.destroy();
-            chartInstance = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['รอคิว', 'กำลังให้บริการ/ตรวจสอบ', 'เสร็จสิ้น'],
-                    datasets: [{
-                        data: [pending, process, done],
-                        backgroundColor: ['#f59e0b', '#3b82f6', '#10b981'],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11 } } }
-                    }
-                }
-            });
+    return Number(number||0).toLocaleString("th-TH",{
+        minimumFractionDigits:0,
+        maximumFractionDigits:2
+    });
+}
 
-            renderAdminTable();
-        }
+function percentage(value,total){
 
-        function renderAdminTable() {
-            const searchKeyword = document.getElementById('admin-search').value.toLowerCase();
-            const tbody = document.getElementById('admin-order-table');
-            tbody.innerHTML = "";
+    if(!total) return 0;
 
-            const filteredOrders = orders.filter(o => 
-                o.name.toLowerCase().includes(searchKeyword) || 
-                o.car.toLowerCase().includes(searchKeyword) || 
-                o.id.toLowerCase().includes(searchKeyword)
-            );
+    return Math.round((value/total)*100);
+}
 
-            if (filteredOrders.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-slate-400 text-xs">ไม่พบข้อมูลออร์เดอร์ในระบบ</td></tr>`;
-                return;
-            }
+function openModal(){
 
-            filteredOrders.forEach(o => {
-                let addonsText = o.addons.length > 0 ? `<br><span class="text-[10px] text-indigo-600 font-medium">+ เสริม: ${o.addons.join(', ')}</span>` : '';
-                tbody.innerHTML += `
-                    <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition">
-                        <td class="p-3 font-semibold text-xs text-blue-600">${o.id}<br><span class="text-[10px] text-slate-400 font-normal">${o.time}</span></td>
-                        <td class="p-3">
-                            <span class="font-bold text-slate-800">${o.name}</span><br>
-                            <span class="text-xs text-slate-500">${o.car} (${o.phone})</span>
-                        </td>
-                        <td class="p-3 text-slate-700">${o.service} ${addonsText}</td>
-                        <td class="p-3 font-bold text-slate-900">${o.price.toLocaleString()} ฿</td>
-                        <td class="p-3">${getStatusBadge(o.status)}</td>
-                        <td class="p-3 text-center space-x-1">
-                            <select onchange="changeOrderStatus('${o.id}', this.value)" class="text-xs border rounded-lg p-1 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500">
-                                <option value="" disabled selected>เปลี่ยนสถานะ</option>
-                                <option value="รอคิว">รอคิว</option>
-                                <option value="กำลังให้บริการ">กำลังให้บริการ</option>
-                                <option value="ตรวจสอบ">ตรวจสอบ</option>
-                                <option value="เสร็จสิ้น">เสร็จสิ้น</option>
-                            </select>
-                            <button onclick="editOrder('${o.id}')" class="text-indigo-600 hover:text-indigo-800 p-1 text-xs" title="แก้ไข"><i class="fa-solid fa-pen"></i></button>
-                            <button onclick="deleteOrder('${o.id}')" class="text-rose-500 hover:text-rose-700 p-1 text-xs" title="ลบรายการ"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
+    document.getElementById("modalBg").classList.add("show");
+}
 
-        // Customer View Table
-        function renderCustomerTable() {
-            const tbody = document.getElementById('customer-order-list');
-            tbody.innerHTML = "";
+function closeModal(){
 
-            if (orders.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-8 text-slate-400 text-xs">ยังไม่มีรายการจองคิวในระบบ</td></tr>`;
-                return;
-            }
+    document.getElementById("modalBg").classList.remove("show");
+}
 
-            orders.forEach(o => {
-                tbody.innerHTML += `
-                    <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition">
-                        <td class="p-3 font-semibold text-blue-600 text-xs">${o.id}<br><span class="text-[10px] text-slate-500 font-normal">${o.car}</span></td>
-                        <td class="p-3 text-slate-700">${o.service}</td>
-                        <td class="p-3 font-bold">${o.price.toLocaleString()} ฿</td>
-                        <td class="p-3">${getStatusBadge(o.status)}</td>
-                        <td class="p-3 text-right text-xs text-slate-400">${o.time}</td>
-                    </tr>
-                `;
-            });
-        }
+function showToast(message){
 
-        function renderAllViews() {
-            renderCustomerTable();
-            renderAdminDashboard();
-            updateNotificationBadge();
-        }
+    const toast=document.getElementById("toast");
 
-        // Modal Helpers
-        function showCustomModal(title, message, type = "info") {
-            document.getElementById('modal-title').innerText = title;
-            document.getElementById('modal-message').innerText = message;
-            const iconDiv = document.getElementById('modal-icon');
-            if (type === "success") {
-                iconDiv.className = "w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 text-xl flex items-center justify-center mx-auto";
-                iconDiv.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
-            } else {
-                iconDiv.className = "w-12 h-12 rounded-full bg-blue-100 text-blue-600 text-xl flex items-center justify-center mx-auto";
-                iconDiv.innerHTML = `<i class="fa-solid fa-circle-info"></i>`;
-            }
-            document.getElementById('custom-modal').classList.remove('hidden');
-        }
+    toast.textContent=message;
 
-        function closeCustomModal() {
-            document.getElementById('custom-modal').classList.add('hidden');
-        }
+    toast.classList.add("show");
 
-        // Initialize App on Load
-        window.onload = function() {
-            calculateTotal();
-            switchRole('admin'); // Start with admin dashboard & 10 sample items visible
-        };
-    </script>
+    setTimeout(()=>{
+        toast.classList.remove("show");
+    },2500);
+}
+
+function logout(){
+
+    state.loggedIn=false;
+    state.user=null;
+    state.page="home";
+
+    save();
+    renderLogin();
+}
+
+function resetData(){
+
+    if(!confirm("ต้องการรีเซ็ตข้อมูลตัวอย่างทั้งหมดหรือไม่?")) return;
+
+    localStorage.removeItem(STORAGE_KEY);
+
+    createDemoData();
+
+    showToast("รีเซ็ตข้อมูลเรียบร้อย");
+
+    setTimeout(()=>{
+        renderLogin();
+    },500);
+}
+
+/* =========================================================
+   START
+   ========================================================= */
+
+init();
+
+</script>
+
 </body>
-</html>
+</html>ด
